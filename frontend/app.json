@@ -27,7 +27,9 @@
       "permissions": [
         "android.permission.RECEIVE_SMS",
         "android.permission.READ_SMS",
-        "android.permission.POST_NOTIFICATIONS"
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES"
       ]
     },
     "web": {
@@ -41,6 +43,13 @@
       "expo-web-browser",
       "expo-localization",
       "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Attach receipts to your transactions",
+          "cameraPermission": "Scan receipts to add transactions instantly"
+        }
+      ],
       [
         "expo-splash-screen",
         {

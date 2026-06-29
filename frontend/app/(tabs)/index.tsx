@@ -136,6 +136,7 @@ export default function Dashboard() {
 
         <View style={{ padding: spacing.lg, flexDirection: "row", gap: 10, flexWrap: "wrap" }}>
           <QuickAction icon="add-circle" label={t("qa_add", language)} onPress={() => router.push("/add-transaction" as any)} testID="quick-add" />
+          <QuickAction icon="receipt-long" label={t("qa_scan_receipt", language)} onPress={() => router.push("/scan-receipt" as any)} testID="quick-scan-receipt" />
           <QuickAction icon="sms" label={t("qa_scan_sms", language)} onPress={() => router.push("/scan-sms" as any)} testID="quick-sms" />
           <QuickAction icon="flag" label={t("qa_goals", language)} onPress={() => router.push("/goals" as any)} testID="quick-goals" />
           <QuickAction icon="calendar-today" label={t("qa_calendar", language)} onPress={() => router.push("/calendar" as any)} testID="quick-calendar" />

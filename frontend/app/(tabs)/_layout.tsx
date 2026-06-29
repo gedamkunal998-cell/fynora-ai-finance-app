@@ -19,7 +19,7 @@ async function registerForPush(_userId: string) {
       method: "POST",
       body: JSON.stringify({ platform: Platform.OS, device_token: tok.data }),
     });
-  } catch (e) {
+  } catch {
     // silent — push will work after deploy/build
   }
 }

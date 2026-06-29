@@ -155,6 +155,7 @@ const en: Dict = {
   cat_bills: "Bills", cat_healthcare: "Healthcare", cat_education: "Education",
   cat_entertainment: "Entertainment", cat_rent: "Rent", cat_emi: "EMI",
   cat_salary: "Salary", cat_investment: "Investment", cat_others: "Others",
+  scan_receipt: "Scan Receipt", ocr_title: "Scan Receipt", ocr_sub: "Auto-fill amount, merchant and category from a photo", ocr_take_photo: "Take Photo", ocr_pick_gallery: "Pick from Gallery", ocr_processing: "Reading receipt…", ocr_review_title: "Review Receipt", ocr_review_hint: "Edit anything before saving", ocr_date: "Date", ocr_retake: "Retake", ocr_failed: "Couldn't read this receipt. Try a clearer photo.", ocr_no_permission: "Camera permission denied. Enable it in Settings.", ocr_open_settings: "Open Settings", ocr_premium_limit: "Free OCR limit reached (3). Upgrade to Pro for unlimited scans.", ocr_powered_by: "Powered by Claude Vision", ocr_choose_source: "How do you want to add the receipt?", ocr_invalid_amount: "Please enter a valid amount.", qa_scan_receipt: "Scan Receipt",
 };
 
 // ---------- HINDI (Devanagari) ----------
@@ -290,6 +291,7 @@ const hi: Dict = {
   cat_bills: "बिल", cat_healthcare: "स्वास्थ्य", cat_education: "शिक्षा",
   cat_entertainment: "मनोरंजन", cat_rent: "किराया", cat_emi: "EMI",
   cat_salary: "वेतन", cat_investment: "निवेश", cat_others: "अन्य",
+  scan_receipt: "रसीद स्कैन", ocr_title: "रसीद स्कैन", ocr_sub: "फ़ोटो से राशि, दुकानदार और श्रेणी अपने आप भरें", ocr_take_photo: "फ़ोटो लें", ocr_pick_gallery: "गैलरी से चुनें", ocr_processing: "रसीद पढ़ी जा रही है…", ocr_review_title: "रसीद की समीक्षा", ocr_review_hint: "सहेजने से पहले कुछ भी बदलें", ocr_date: "तारीख़", ocr_retake: "फिर से लें", ocr_failed: "यह रसीद पढ़ी नहीं जा सकी। कृपया साफ़ फ़ोटो आज़माएँ।", ocr_no_permission: "कैमरा अनुमति अस्वीकृत। सेटिंग्स में चालू करें।", ocr_open_settings: "सेटिंग्स खोलें", ocr_premium_limit: "मुफ़्त OCR सीमा (3) पूरी। असीमित स्कैन के लिए प्रो लें।", ocr_powered_by: "Claude Vision द्वारा संचालित", ocr_choose_source: "रसीद कैसे जोड़ें?", ocr_invalid_amount: "कृपया सही राशि दर्ज करें।", qa_scan_receipt: "रसीद स्कैन",
 };
 
 // ---------- MARATHI (Devanagari) ----------
@@ -425,6 +427,7 @@ const mr: Dict = {
   cat_bills: "बिले", cat_healthcare: "आरोग्य", cat_education: "शिक्षण",
   cat_entertainment: "मनोरंजन", cat_rent: "भाडे", cat_emi: "EMI",
   cat_salary: "पगार", cat_investment: "गुंतवणूक", cat_others: "इतर",
+  scan_receipt: "रसीद स्कॅन", ocr_title: "रसीद स्कॅन", ocr_sub: "फोटोवरून रक्कम, दुकानदार आणि श्रेणी आपोआप भरा", ocr_take_photo: "फोटो काढा", ocr_pick_gallery: "गॅलरीतून निवडा", ocr_processing: "रसीद वाचत आहे…", ocr_review_title: "रसीद तपासा", ocr_review_hint: "सेव्ह करण्यापूर्वी काहीही बदला", ocr_date: "तारीख", ocr_retake: "पुन्हा काढा", ocr_failed: "ही रसीद वाचता आली नाही. कृपया स्पष्ट फोटो वापरा.", ocr_no_permission: "कॅमेरा परवानगी नाकारली. सेटिंग्जमध्ये सुरू करा.", ocr_open_settings: "सेटिंग्ज उघडा", ocr_premium_limit: "विनामूल्य OCR मर्यादा (3) पूर्ण. अमर्यादित स्कॅनसाठी प्रो घ्या.", ocr_powered_by: "Claude Vision द्वारे", ocr_choose_source: "रसीद कशी जोडायची?", ocr_invalid_amount: "कृपया योग्य रक्कम द्या.", qa_scan_receipt: "रसीद स्कॅन",
 };
 
 // ---------- GUJARATI (Gujarati script) ----------
@@ -560,6 +563,7 @@ const gu: Dict = {
   cat_bills: "બિલ", cat_healthcare: "આરોગ્ય", cat_education: "શિક્ષણ",
   cat_entertainment: "મનોરંજન", cat_rent: "ભાડું", cat_emi: "EMI",
   cat_salary: "પગાર", cat_investment: "રોકાણ", cat_others: "અન્ય",
+  scan_receipt: "રસીદ સ્કેન", ocr_title: "રસીદ સ્કેન", ocr_sub: "ફોટોમાંથી રકમ, દુકાનદાર અને શ્રેણી આપોઆપ ભરો", ocr_take_photo: "ફોટો લો", ocr_pick_gallery: "ગેલેરીમાંથી પસંદ કરો", ocr_processing: "રસીદ વાંચાઈ રહી છે…", ocr_review_title: "રસીદ સમીક્ષા", ocr_review_hint: "સાચવતા પહેલા કંઈપણ બદલો", ocr_date: "તારીખ", ocr_retake: "ફરી લો", ocr_failed: "આ રસીદ વાંચી શકાઈ નથી. સ્પષ્ટ ફોટો અજમાવો.", ocr_no_permission: "કેમેરા પરવાનગી નકારી. સેટિંગ્સમાં ચાલુ કરો.", ocr_open_settings: "સેટિંગ્સ ખોલો", ocr_premium_limit: "મફત OCR મર્યાદા (3) પૂર્ણ. અમર્યાદિત સ્કેન માટે પ્રો લો.", ocr_powered_by: "Claude Vision દ્વારા", ocr_choose_source: "રસીદ કેવી રીતે ઉમેરવી?", ocr_invalid_amount: "કૃપા કરી માન્ય રકમ આપો.", qa_scan_receipt: "રસીદ સ્કેન",
 };
 
 // ---------- TAMIL ----------
@@ -694,6 +698,7 @@ const ta: Dict = {
   cat_bills: "பில்கள்", cat_healthcare: "சுகாதாரம்", cat_education: "கல்வி",
   cat_entertainment: "பொழுதுபோக்கு", cat_rent: "வாடகை", cat_emi: "EMI",
   cat_salary: "சம்பளம்", cat_investment: "முதலீடு", cat_others: "மற்றவை",
+  scan_receipt: "ரசீது ஸ்கேன்", ocr_title: "ரசீது ஸ்கேன்", ocr_sub: "புகைப்படத்திலிருந்து தொகை, வணிகர் மற்றும் வகையை தானாக நிரப்பவும்", ocr_take_photo: "புகைப்படம் எடு", ocr_pick_gallery: "கேலரியில் இருந்து தேர்", ocr_processing: "ரசீதை படிக்கிறது…", ocr_review_title: "ரசீதை மறுபரிசீலனை", ocr_review_hint: "சேமிப்பதற்கு முன் எதையும் திருத்தலாம்", ocr_date: "தேதி", ocr_retake: "மீண்டும் எடு", ocr_failed: "இந்த ரசீதை படிக்க முடியவில்லை. தெளிவான புகைப்படத்தை முயற்சிக்கவும்.", ocr_no_permission: "கேமரா அனுமதி மறுக்கப்பட்டது. அமைப்புகளில் இயக்கவும்.", ocr_open_settings: "அமைப்புகளை திற", ocr_premium_limit: "இலவச OCR வரம்பு (3) நிறைந்தது. வரம்பற்ற ஸ்கேனுக்கு ப்ரோ வாங்கவும்.", ocr_powered_by: "Claude Vision மூலம்", ocr_choose_source: "ரசீதை எப்படி சேர்க்க வேண்டும்?", ocr_invalid_amount: "சரியான தொகையை உள்ளிடவும்.", qa_scan_receipt: "ரசீது ஸ்கேன்",
 };
 
 // ---------- TELUGU ----------
@@ -823,6 +828,7 @@ const te: Dict = {
   cat_bills: "బిల్లులు", cat_healthcare: "ఆరోగ్యం", cat_education: "విద్య",
   cat_entertainment: "వినోదం", cat_rent: "అద్దె", cat_emi: "EMI",
   cat_salary: "జీతం", cat_investment: "పెట్టుబడి", cat_others: "ఇతరాలు",
+  scan_receipt: "రసీదు స్కాన్", ocr_title: "రసీదు స్కాన్", ocr_sub: "ఫోటో నుండి మొత్తం, వ్యాపారి మరియు వర్గం స్వయంగా నింపండి", ocr_take_photo: "ఫోటో తీయండి", ocr_pick_gallery: "గ్యాలరీ నుండి ఎంచుకోండి", ocr_processing: "రసీదు చదువుతోంది…", ocr_review_title: "రసీదు సమీక్షించండి", ocr_review_hint: "సేవ్ చేయడానికి ముందు ఏదైనా మార్చండి", ocr_date: "తేదీ", ocr_retake: "మళ్ళీ తీయండి", ocr_failed: "ఈ రసీదు చదవలేకపోయాము. స్పష్టమైన ఫోటో ప్రయత్నించండి.", ocr_no_permission: "కెమెరా అనుమతి తిరస్కరించబడింది. సెట్టింగులలో ఆన్ చేయండి.", ocr_open_settings: "సెట్టింగులు తెరవండి", ocr_premium_limit: "ఉచిత OCR పరిమితి (3) చేరుకుంది. అపరిమిత స్కాన్‌లకు ప్రో పొందండి.", ocr_powered_by: "Claude Vision ద్వారా", ocr_choose_source: "రసీదును ఎలా జోడించాలి?", ocr_invalid_amount: "దయచేసి సరైన మొత్తాన్ని నమోదు చేయండి.", qa_scan_receipt: "రసీదు స్కాన్",
 };
 
 // ---------- MALAYALAM ----------
@@ -952,6 +958,7 @@ const ml: Dict = {
   cat_bills: "ബില്ലുകൾ", cat_healthcare: "ആരോഗ്യം", cat_education: "വിദ്യാഭ്യാസം",
   cat_entertainment: "വിനോദം", cat_rent: "വാടക", cat_emi: "EMI",
   cat_salary: "ശമ്പളം", cat_investment: "നിക്ഷേപം", cat_others: "മറ്റുള്ളവ",
+  scan_receipt: "രസീത് സ്കാൻ", ocr_title: "രസീത് സ്കാൻ", ocr_sub: "ഫോട്ടോയിൽ നിന്ന് തുക, വ്യാപാരി, വിഭാഗം സ്വയം നിറയ്ക്കുക", ocr_take_photo: "ഫോട്ടോ എടുക്കുക", ocr_pick_gallery: "ഗാലറിയിൽ നിന്ന് തിരഞ്ഞെടുക്കുക", ocr_processing: "രസീത് വായിക്കുന്നു…", ocr_review_title: "രസീത് അവലോകനം", ocr_review_hint: "സേവ് ചെയ്യുന്നതിന് മുമ്പ് എഡിറ്റ് ചെയ്യാം", ocr_date: "തീയതി", ocr_retake: "വീണ്ടും എടുക്കുക", ocr_failed: "ഈ രസീത് വായിക്കാനായില്ല. വ്യക്തമായ ഫോട്ടോ ശ്രമിക്കുക.", ocr_no_permission: "ക്യാമറ അനുമതി നിഷേധിച്ചു. ക്രമീകരണങ്ങളിൽ ഓൺ ചെയ്യുക.", ocr_open_settings: "ക്രമീകരണങ്ങൾ തുറക്കുക", ocr_premium_limit: "സൗജന്യ OCR പരിധി (3) തീർന്നു. പരിധിയില്ലാത്ത സ്കാനുകൾക്ക് പ്രോ എടുക്കുക.", ocr_powered_by: "Claude Vision വഴി", ocr_choose_source: "രസീത് എങ്ങനെ ചേർക്കണം?", ocr_invalid_amount: "ദയവായി ശരിയായ തുക നൽകുക.", qa_scan_receipt: "രസീത് സ്കാൻ",
 };
 
 
@@ -1082,6 +1089,7 @@ const bn: Dict = {
   cat_bills: "বিল", cat_healthcare: "স্বাস্থ্য", cat_education: "শিক্ষা",
   cat_entertainment: "বিনোদন", cat_rent: "ভাড়া", cat_emi: "EMI",
   cat_salary: "বেতন", cat_investment: "বিনিয়োগ", cat_others: "অন্যান্য",
+  scan_receipt: "রসিদ স্ক্যান", ocr_title: "রসিদ স্ক্যান", ocr_sub: "ছবি থেকে পরিমাণ, ব্যবসায়ী এবং বিভাগ স্বয়ংক্রিয়ভাবে পূরণ করুন", ocr_take_photo: "ছবি তুলুন", ocr_pick_gallery: "গ্যালারি থেকে বাছুন", ocr_processing: "রসিদ পড়া হচ্ছে…", ocr_review_title: "রসিদ পর্যালোচনা", ocr_review_hint: "সংরক্ষণের আগে যেকোনো কিছু সম্পাদনা করুন", ocr_date: "তারিখ", ocr_retake: "আবার তুলুন", ocr_failed: "এই রসিদ পড়া যায়নি। পরিষ্কার ছবি চেষ্টা করুন।", ocr_no_permission: "ক্যামেরা অনুমতি অস্বীকৃত। সেটিংসে চালু করুন।", ocr_open_settings: "সেটিংস খুলুন", ocr_premium_limit: "বিনামূল্যে OCR সীমা (3) শেষ। সীমাহীন স্ক্যানের জন্য প্রো নিন।", ocr_powered_by: "Claude Vision দ্বারা চালিত", ocr_choose_source: "রসিদ কীভাবে যোগ করবেন?", ocr_invalid_amount: "অনুগ্রহ করে সঠিক পরিমাণ দিন।", qa_scan_receipt: "রসিদ স্ক্যান",
 };
 
 // ---------- PUNJABI (Gurmukhi) ----------
@@ -1211,6 +1219,7 @@ const pa: Dict = {
   cat_bills: "ਬਿੱਲ", cat_healthcare: "ਸਿਹਤ", cat_education: "ਸਿੱਖਿਆ",
   cat_entertainment: "ਮਨੋਰੰਜਨ", cat_rent: "ਕਿਰਾਇਆ", cat_emi: "EMI",
   cat_salary: "ਤਨਖਾਹ", cat_investment: "ਨਿਵੇਸ਼", cat_others: "ਹੋਰ",
+  scan_receipt: "ਰਸੀਦ ਸਕੈਨ", ocr_title: "ਰਸੀਦ ਸਕੈਨ", ocr_sub: "ਫੋਟੋ ਤੋਂ ਰਕਮ, ਦੁਕਾਨਦਾਰ ਅਤੇ ਸ਼੍ਰੇਣੀ ਆਪਣੇ ਆਪ ਭਰੋ", ocr_take_photo: "ਫੋਟੋ ਲਓ", ocr_pick_gallery: "ਗੈਲਰੀ ਵਿੱਚੋਂ ਚੁਣੋ", ocr_processing: "ਰਸੀਦ ਪੜ੍ਹ ਰਿਹਾ ਹੈ…", ocr_review_title: "ਰਸੀਦ ਜਾਂਚੋ", ocr_review_hint: "ਸੇਵ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕੁਝ ਵੀ ਬਦਲੋ", ocr_date: "ਤਾਰੀਖ", ocr_retake: "ਮੁੜ ਲਓ", ocr_failed: "ਇਹ ਰਸੀਦ ਪੜ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕੀ। ਸਾਫ਼ ਫੋਟੋ ਅਜ਼ਮਾਓ।", ocr_no_permission: "ਕੈਮਰਾ ਇਜਾਜ਼ਤ ਨਾਮਨਜ਼ੂਰ। ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਚਾਲੂ ਕਰੋ।", ocr_open_settings: "ਸੈਟਿੰਗਜ਼ ਖੋਲ੍ਹੋ", ocr_premium_limit: "ਮੁਫ਼ਤ OCR ਸੀਮਾ (3) ਖ਼ਤਮ। ਅਸੀਮਤ ਸਕੈਨਾਂ ਲਈ ਪ੍ਰੋ ਲਵੋ।", ocr_powered_by: "Claude Vision ਨਾਲ", ocr_choose_source: "ਰਸੀਦ ਕਿਵੇਂ ਜੋੜੀਏ?", ocr_invalid_amount: "ਕਿਰਪਾ ਕਰਕੇ ਸਹੀ ਰਕਮ ਦਿਓ।", qa_scan_receipt: "ਰਸੀਦ ਸਕੈਨ",
 };
 
 // ---------- URDU ----------
@@ -1340,6 +1349,7 @@ const ur: Dict = {
   cat_bills: "بل", cat_healthcare: "صحت", cat_education: "تعلیم",
   cat_entertainment: "تفریح", cat_rent: "کرایہ", cat_emi: "EMI",
   cat_salary: "تنخواہ", cat_investment: "سرمایہ کاری", cat_others: "دیگر",
+  scan_receipt: "رسید اسکین", ocr_title: "رسید اسکین", ocr_sub: "تصویر سے رقم، دکاندار اور زمرہ خودکار طور پر بھریں", ocr_take_photo: "تصویر لیں", ocr_pick_gallery: "گیلری سے منتخب کریں", ocr_processing: "رسید پڑھی جا رہی ہے…", ocr_review_title: "رسید کا جائزہ", ocr_review_hint: "محفوظ کرنے سے پہلے کچھ بھی بدلیں", ocr_date: "تاریخ", ocr_retake: "دوبارہ لیں", ocr_failed: "یہ رسید پڑھی نہیں جا سکی۔ صاف تصویر آزمائیں۔", ocr_no_permission: "کیمرے کی اجازت مسترد۔ ترتیبات میں آن کریں۔", ocr_open_settings: "ترتیبات کھولیں", ocr_premium_limit: "مفت OCR حد (3) ختم۔ لامحدود اسکین کے لیے پرو لیں۔", ocr_powered_by: "Claude Vision سے", ocr_choose_source: "رسید کیسے شامل کریں؟", ocr_invalid_amount: "براہ کرم درست رقم درج کریں۔", qa_scan_receipt: "رسید اسکین",
 };
 
 // ---------- ODIA ----------
@@ -1469,6 +1479,7 @@ const or: Dict = {
   cat_bills: "ବିଲ", cat_healthcare: "ସ୍ୱାସ୍ଥ୍ୟ", cat_education: "ଶିକ୍ଷା",
   cat_entertainment: "ମନୋରଞ୍ଜନ", cat_rent: "ଭଡା", cat_emi: "EMI",
   cat_salary: "ବେତନ", cat_investment: "ନିବେଶ", cat_others: "ଅନ୍ୟ",
+  scan_receipt: "ରସିଦ ସ୍କାନ", ocr_title: "ରସିଦ ସ୍କାନ", ocr_sub: "ଫଟୋରୁ ରାଶି, ବ୍ୟବସାୟୀ ଏବଂ ବର୍ଗ ସ୍ୱୟଂ ପୂରଣ କରନ୍ତୁ", ocr_take_photo: "ଫଟୋ ନିଅନ୍ତୁ", ocr_pick_gallery: "ଗ୍ୟାଲେରୀରୁ ବାଛନ୍ତୁ", ocr_processing: "ରସିଦ ପଢୁଛି…", ocr_review_title: "ରସିଦ ସମୀକ୍ଷା", ocr_review_hint: "ସେଭ କରିବା ପୂର୍ବରୁ କିଛି ବି ବଦଳାନ୍ତୁ", ocr_date: "ତାରିଖ", ocr_retake: "ପୁଣି ନିଅନ୍ତୁ", ocr_failed: "ଏହି ରସିଦ ପଢି ହେଲା ନାହିଁ। ସ୍ପଷ୍ଟ ଫଟୋ ଚେଷ୍ଟା କରନ୍ତୁ।", ocr_no_permission: "କ୍ୟାମେରା ଅନୁମତି ପ୍ରତ୍ୟାଖ୍ୟାନ। ସେଟିଂରେ ଚାଲୁ କରନ୍ତୁ।", ocr_open_settings: "ସେଟିଂ ଖୋଲନ୍ତୁ", ocr_premium_limit: "ମାଗଣା OCR ସୀମା (3) ସମାପ୍ତ। ଅସୀମିତ ସ୍କାନ ପାଇଁ ପ୍ରୋ ନିଅନ୍ତୁ।", ocr_powered_by: "Claude Vision ଦ୍ୱାରା", ocr_choose_source: "ରସିଦ କିପରି ଯୋଡିବେ?", ocr_invalid_amount: "ଦୟାକରି ସଠିକ ରାଶି ଦିଅନ୍ତୁ।", qa_scan_receipt: "ରସିଦ ସ୍କାନ",
 };
 
 // ---------- Dictionary registry ----------

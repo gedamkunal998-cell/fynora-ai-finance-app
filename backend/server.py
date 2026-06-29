@@ -1589,7 +1589,7 @@ async def ocr_receipt(body: OcrReceiptReq, authorization: Optional[str] = Header
         if ocr_count >= 3:
             raise HTTPException(402, "Premium required: free OCR limit reached (3/3). Upgrade to Pro for unlimited scans.")
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent
+        from emergentintegrations.llm.chat import LlmChat, UserMessage, FileContent
         b64 = body.image_base64
         if b64.startswith("data:"):
             b64 = b64.split(",", 1)[1]
@@ -1604,7 +1604,10 @@ async def ocr_receipt(body: OcrReceiptReq, authorization: Optional[str] = Header
                 'Education|Entertainment|Rent|EMI|Investment|Others"}.'
             ),
         ).with_model("anthropic", "claude-sonnet-4-5-20250929")
-        msg = UserMessage(text="Extract receipt fields as JSON.", image_contents=[ImageContent(image_base64=b64)])
+        msg = UserMessage(
+            text="Extract receipt fields as JSON.",
+            file_contents=[FileContent(content_type="image", file_content_base64=b64)],
+        )
         resp = await chat.send_message(msg)
         import json as _json
         raw = (resp or "").strip()

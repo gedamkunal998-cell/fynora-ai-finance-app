@@ -18,7 +18,7 @@ Fynora is a privacy-first, AI-driven personal finance companion for Indian users
 - **AI Insights**: weekly summaries, recurring expense detection, money tips (Claude Sonnet 4.5)
 - **Achievements & Streaks**: 6 badges, no-spend streaks
 - **Premium (Fynora Pro)**: Razorpay monthly/yearly, status verification, unlimited OCR
-- **OCR Receipt**: Claude Vision auto-fills amount/merchant/category
+- **OCR Receipt**: full camera + gallery flow on `/scan-receipt`, Claude Vision auto-fills amount / merchant / date / category, review-and-edit screen before save, handles camera permission denial, OCR failures, premium gating (3 free scans)
 - **Backup & Restore**: JSON export/import, CSV export
 - **Profile / Settings**: theme (dark/light), language (11), notifications toggle
 
