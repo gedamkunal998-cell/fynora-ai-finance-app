@@ -1,0 +1,36 @@
+{
+  "summary": "Fynora STABILIZATION run (iteration_2). Backend: 41/41 pytest cases re-ran in 11.95s — all GREEN (auth, txns + auto-categorise, dashboard, streak, merchants, calendar, recurring, budgets, goals, insights via Claude Sonnet 4.5, weekly, achievements, settings, export, push-expected-500). Frontend deep E2E from a fresh new user perspective: SIGNUP with realuser+326231@fynora.app → Dashboard OK; added all 5 txns (Swiggy/Amazon/Uber/Salary/Netflix) with correct auto-categorisation visible in Txns tab; search 'swi' returns Swiggy; range chips + Food category chip filter work; Budgets created Food ₹3000 (showed 12% / Remaining ₹2,650) and Shopping ₹4000 (48% / Remaining ₹2,101) — math matches expected; Goal 'New iPhone' ₹80000 created with smartphone icon, +10% bumped current to ₹8,000. Second clean-state run: Google button present, Forgot-password screen opens, wrong password shows 'Invalid credentials', correct login → Dashboard, RELOAD-AFTER-LOGIN keeps session (lands on Dashboard not login) ✅, AI Insights returns 5 Hinglish cards via Claude Sonnet 4.5, refresh works; Scan SMS parse + dedup re-parse + garbage text all handled gracefully; Calendar / Merchants / Achievements (6 badges) / Weekly Report / Recurring all render without crash; Settings theme Light↔Dark toggle re-themes whole app, language en↔hi↔mr toggles, notif switch toggles; Export screen opens, Export CSV tap fires without crash; Logout returns to login screen. Signup validations all firing correct inline errors: 'Email already registered', 'Password must be at least 6 characters', 'Passwords don't match'. Expo Router warnings: 'Too many screens defined' NO LONGER appearing (tabs/_layout.tsx is now clean with only home/transactions/budgets/insights/profile). 'Could not parse Expo config' warning GONE (googleServicesFile reference removed from app.json; placeholder file deleted). Two minor non-blocking issues remain. Deprecated packages detected: none.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": [
+      {"component": "achievements badge icon (server.py seed)", "issue": "Console warning: '\"trophy\" is not a valid icon name for family \"material\"'. Badge 'Budget Master' uses icon='trophy' which is not part of MaterialIcons. Reference: /app/backend/server.py:1049. Fix: change to 'emoji-events' or 'workspace-premium'."},
+      {"component": "pointerEvents prop", "issue": "Console warning still present: 'props.pointerEvents is deprecated. Use style.pointerEvents'. No occurrence found in /app/frontend/app or /app/frontend/src — likely emitted by a transitive lib (e.g., react-native-web ScrollView/SafeAreaView in expo-router internals or a Picker). Non-blocking. Reference: emitted at runtime on every screen load. Workaround: ignore via LogBox.ignoreLogs(['props.pointerEvents is deprecated']) in /app/frontend/app/_layout.tsx if cosmetic-only is desired."}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_fynora_api.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Change server.py:1049 budget_master badge icon from 'trophy' → 'emoji-events' (or any valid MaterialIcons name) to silence the runtime icon warning on Achievements / Profile screens.",
+    "(Optional cosmetic) Add LogBox.ignoreLogs(['props.pointerEvents is deprecated']) in root _layout.tsx to mute the transitive-library warning until upstream lib is updated.",
+    "Nothing else — app is stable. No new features required."
+  ],
+  "critical_code_review_comments": [
+    "tabs/_layout.tsx now only declares the 5 real tabs — 'Too many screens defined' warnings are gone. ✅",
+    "app.json no longer references google-services.json — Expo config parse warning gone. ✅",
+    "Auth flow (signup→dashboard, login, wrong-pw error, session persistence across reload, logout) all work as expected end-to-end.",
+    "Backend remains at 1213 lines — suggestion from iter_1 still stands to split into routers/ if it keeps growing, but not urgent."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (41/41 pytest)", "frontend": "100% of executed flows passed (signup, dashboard, 5 txns + auto-categorise, search, filters, 2 budgets w/ correct %, goal + 10%, AI insights 5 cards, scan-sms parse/dedup/garbage, calendar/merchants/6 badges, weekly, recurring, theme+lang toggle, export, logout, login persistence, signup validations: duplicate / short-pw / mismatch)"},
+  "seed_data_creation": "Created throwaway signup realuser+326231@fynora.app / Realuser@2026 (name 'Real User') during E2E. Re-used test@fynora.app for the rest of the flows. No persistent test pollution beyond the same harmless prefix users from iter_1.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend 41/41 stable; rerun: `pytest backend/tests/test_fynora_api.py -v`. Frontend stabilization is COMPLETE — only the trophy-icon warning (server.py:1049) and an upstream pointerEvents deprecation warning remain; both non-blocking. Note that /goals, /calendar, /merchants, /achievements, /scan-sms, /report, /recurring, /export, /settings, /add-transaction, /add-budget, /add-goal are all ROOT STACK screens (no bottom tab bar visible while on them) — when scripting playwright, use page.go_back() before clicking tab-* selectors. EMERGENT_PUSH_KEY is placeholder → /api/register-push 500 is expected (not a bug).",
+  "rca_of_issue": "trophy-icon warning RCA: /app/backend/server.py:1049 seeds the budget_master achievement with icon='trophy'. The frontend (/app/frontend/app/achievements.tsx and profile.tsx) renders this via <MaterialIcons name={b.icon} />. 'trophy' is not in the MaterialIcons font, so it falls back to ? glyph and emits a runtime warning. Fix is one-line: replace 'trophy' with 'emoji-events' (already used elsewhere)."
+}

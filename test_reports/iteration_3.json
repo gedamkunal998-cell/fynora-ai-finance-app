@@ -1,0 +1,30 @@
+{
+  "summary": "Fynora BACKEND-ONLY regression run (iteration_3) per main agent request. Re-ran the full pytest suite at /app/backend/tests/test_fynora_api.py against the public preview URL https://fynora-preview.preview.emergentagent.com — 41/41 tests PASSED in 11.83s. Coverage: Auth (root, login OK, wrong-pw 401, /me w/o token 401, /me w/ token returns user_id + email and NO password_hash, duplicate-signup 400, fresh signup 200, forgot-password returns dev_token + reset-password flow + login with new pw, invalid-reset-token 400, google-session invalid returns 401/502), Transactions (Swiggy→Food and Amazon→Shopping auto-categorisation, range filters today/week/month/all, category=Food filter, search 'swi', parse-sms (Zomato debit ₹250 → Food + salary credit ₹80000), parse-sms dedup returns created=0, DELETE then verify gone), Dashboard (income/expenses/savings/spending_score 0-100/rating in [Excellent,Good,Average,Needs Improvement]/categories/recent/month), Streak (current_streak + best_streak), Merchants (sorted desc by amount), Calendar (month/year/days), Recurring (list), Budgets (create Food 2000, list with used/remaining/percent computed, upsert to 2500, delete), Goals (create TEST_Bike with target+current, list with progress%, PATCH current_amount to 10000 verified via GET, delete), Insights via Claude Sonnet 4.5 (returns list ≥1; refresh OK), Weekly report (income/expenses/savings/highest_category/lowest_category/tips/period), Achievements (exactly 6 badges, each has badge_id + unlocked), Settings PATCH (theme=dark persisted, no password_hash), Export CSV (filename ends .csv, content begins 'Date,Merchant,Category'), Push register expected 500/502 (EMERGENT_PUSH_KEY is placeholder). Backend is fully stable for this iteration. NOTE: i18n.ts is a frontend concern and was NOT verified this round because main agent requested backend-only testing.",
+  "backend_issues": {"critical": [], "minor": [{"endpoint": "GET /api/insights, POST /api/insights/refresh", "issue": "Backend logs show 'Claude insights failed: litellm.BadRequestError - Budget has been exceeded! Current cost: 0.0, Max budget: 0.0' for the EMERGENT_LLM_KEY. Endpoint still returns 200 because HINDI_FALLBACK_INSIGHTS kick in, so behaviour is correct, but real Hinglish AI insights are NOT being generated right now — user will see the canned fallback list. If real AI insights are required, the EMERGENT_LLM_KEY budget needs to be refreshed/increased."}]},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_fynora_api.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "No backend action items — all 41 endpoints pass. Carry over from iteration_2 (still open, non-blocking): change server.py:1049 badge_master icon 'trophy' → 'emoji-events' to silence MaterialIcons warning on Achievements/Profile screens."
+  ],
+  "critical_code_review_comments": [
+    "Backend server.py is still a single 1213-line file — non-blocking but worth splitting into routers/ (auth, transactions, budgets, goals, insights) if it grows further.",
+    "JWT_SECRET in /app/backend/.env is the dev value 'fynora-dev-secret-change-in-production-2026' — fine for preview but must be rotated before any production deploy.",
+    "Test design follows the Create→GET→Update→GET→Delete→verify-gone pattern; data is properly persisted to MongoDB and reflected through the public ingress."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (41/41 pytest in 11.83s)", "frontend": "not tested this iteration (backend-only request)"},
+  "seed_data_creation": "Tests transparently create throwaway users test_new_<ts>@fynora.app and test_reset_<ts>@fynora.app and create/delete Food budget, TEST_Bike goal, Swiggy/Amazon/Zomato transactions. Persistent user test@fynora.app / Fynora@2026 continues to be reused across iterations.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run `EXPO_PUBLIC_BACKEND_URL=https://fynora-preview.preview.emergentagent.com pytest /app/backend/tests/test_fynora_api.py -v` to regress backend in ~12s. Backend remained 100% green across iterations 1, 2 and 3. Frontend stabilization was verified in iteration_2 and was NOT re-run this iteration (main agent scoped this run to backend-only). The only known open issue is cosmetic: server.py:1049 budget_master icon='trophy' (not a valid MaterialIcons name) causes a runtime warning on the Achievements / Profile screens; one-line fix to 'emoji-events'. EMERGENT_PUSH_KEY is placeholder → /api/register-push 500 is EXPECTED, not a bug.",
+  "rca_of_issue": "N/A — no failures."
+}
