@@ -1,0 +1,34 @@
+{
+  "summary": "Fynora iteration_4 FULL regression (backend + frontend) — ALL GREEN. Backend: 46/46 pytest passing in 11.26s against https://fynora-dev.preview.emergentagent.com (41 original + 5 NEW for /api/backup, /api/restore replace=false (no dupes), /api/restore replace=true (wipes), backup/restore unauthorized 401, and /api/insights + /api/insights/refresh now both return ai_status field). New tests added under TestBackupRestore class. Curl-verified /api/insights/refresh returns ai_status='ok' with real Claude Sonnet 4.5 Hinglish insights — EMERGENT_LLM_KEY recharge confirmed working. Frontend (mobile 390x844 viewport): login → dashboard renders with all required testIDs (dashboard-scroll, score-card, stat-income, stat-expenses, stat-savings, streak-card, plus full quick-action grid and tab bar). Insights tab loaded successfully — ai_status=ok so ai-fallback-banner correctly HIDDEN, 5 real Claude insights rendered (insight-0..4). Profile → Backup nav (profile-backup) routes to /backup screen; backup-export-button and backup-restore-button both render; tapping Export Backup triggers GET /api/backup → 200. /(auth)/reset?token=... screen renders with all four required testIDs (reset-token-input, reset-newpw-input, reset-confirm-input, reset-deeplink-submit) and the token query param is correctly PRE-FILLED into reset-token-input. Zero console / pageerror exceptions across all flows. /api/register-push still 500 (placeholder EMERGENT_PUSH_KEY) — expected, not a bug.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_fynora_api.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "No blocking issues — iteration_4 features (ai_status, /api/backup, /api/restore, /(auth)/reset deeplink, /backup screen) all verified working end-to-end.",
+    "Carry-over (still open, NON-blocking from iteration_2): server.py badge_master icon 'trophy' is not a valid MaterialIcons name → causes a console warning on Achievements/Profile screen. One-line fix: change 'trophy' → 'emoji-events'."
+  ],
+  "critical_code_review_comments": [
+    "server.py is 1426 lines — still functional but worth splitting into routers/ (auth, transactions, budgets, goals, insights, backup) when next sizeable feature is added.",
+    "/api/restore correctly excludes _id (doc.pop('_id', None)) and upserts on natural keys (txn_id / goal_id / budget composite) — dedup verified by test_restore_replace_false_no_dupes (before==after).",
+    "Backup endpoint correctly serializes datetimes to ISO strings and projects out _id with {_id: 0} — no ObjectId leakage observed in response.",
+    "ai_status field is consistently propagated through cache layer too (db.insights_cache stores ai_status alongside insights so cache-hits return correct status, not just freshly-generated calls)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_fynora_api.py (added 5 new tests under TestBackupRestore class + extended TestInsights to assert ai_status)"
+  ],
+  "success_rate": {"backend": "100% (46/46 pytest in 11.26s)", "frontend": "100% (login, dashboard, insights, profile, backup, reset-deeplink all verified)"},
+  "seed_data_creation": "Throwaway users created by tests: test_new_<ts>@fynora.app, test_reset_<ts>@fynora.app, test_backup_<ts>@fynora.app. Backup-user is seeded with 2 transactions, 1 budget, 1 goal then wiped via /api/restore replace=true. Persistent user test@fynora.app / Fynora@2026 reused.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run `EXPO_PUBLIC_BACKEND_URL=https://fynora-dev.preview.emergentagent.com pytest /app/backend/tests/test_fynora_api.py -v` (~11s, 46 tests). For frontend, login with test@fynora.app / Fynora@2026, then verify: (a) Insights tab — when EMERGENT_LLM_KEY has credits, ai-fallback-banner is hidden; when out of credits, banner shows and falls back to canned tips. (b) Profile → Backup item navigates to /backup (Expo Router). (c) /(auth)/reset?token=XYZ should pre-fill the token input. /api/register-push 500 is EXPECTED (placeholder push key).",
+  "rca_of_issue": "N/A — no failures."
+}

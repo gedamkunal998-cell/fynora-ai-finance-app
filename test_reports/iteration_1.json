@@ -1,0 +1,45 @@
+{
+  "summary": "Fynora full backend + frontend smoke test. Backend: 41/41 pytest cases PASSED across auth (signup, login, me, forgot/reset, google-session invalid), transactions (CRUD, filters, search, SMS parsing+dedup, Swiggy→Food, Amazon→Shopping), dashboard (income/expenses/savings/spending_score/rating/categories/recent), streak, merchants, calendar, recurring, budgets (create/upsert/list w/ used+remaining+percent/delete), goals (CRUD + progress), AI insights via Claude Sonnet 4.5 + emergentintegrations (returns real 5 Hinglish lines), insights/refresh, weekly report, achievements (6 badges), settings PATCH, /export/csv, and /register-push (correctly returns 500 with placeholder EMERGENT_PUSH_KEY as documented). Frontend: Login screen renders with FYNORA logo, gradient button, email/password testIDs, Google button, signup link. Login → dashboard works (Spending Score 100, Income ₹80,000, Expenses ₹2,200, Savings ₹77,800, recent transactions, quick actions, tab bar all visible). Tab navigation Home/Txns/Budgets/Insights/Profile all reachable. Add-Transaction modal opens with Spent/Received toggle, Amount, Merchant, Category chips (Food/Fuel/Shopping/Travel), Payment Method (UPI/Card/Cash/Manual), Save button. Scan-SMS screen renders with sms-input, parse-sms-button, load-demo-sms testIDs. No console errors. Expo deprecated packages: none detected (no expo-av/expo-barcode-scanner/expo-background-fetch).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": [
+      {"component": "(tabs)/_layout.tsx", "issue": "Expo Router warns 'Too many screens defined. Route X is extraneous' for: achievements, merchants, report, recurring, settings, scan-sms, export. These non-tab screens should not be declared inside the (tabs) layout (they should be Stack screens at root or moved outside (tabs)). Reference: /app/frontend/app/(tabs)/_layout.tsx"},
+      {"component": "app.json", "issue": "Expo config parse warning: 'Could not parse Expo config: android.googleServicesFile: \"./google-services.json\"' — the referenced google-services.json is missing. Either add the file or remove the key from app.json. Reference: /app/frontend/app.json"},
+      {"component": "package versions", "issue": "Expo doctor reports outdated: expo@54.0.34 → ~54.0.35, expo-font@14.0.11 → ~14.0.12, expo-router@6.0.23 → ~6.0.24. Run `npx expo install --check`. Non-blocking but recommended."},
+      {"component": "pointerEvents prop", "issue": "Console warning: 'props.pointerEvents is deprecated. Use style.pointerEvents' — some component still passes pointerEvents as a prop instead of via style. Search frontend for `pointerEvents=` and migrate to style."}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_fynora_api.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Move non-tab routes (achievements, merchants, report, recurring, settings, scan-sms, export) out of /app/frontend/app/(tabs)/_layout.tsx — declare them at root Stack instead to silence 'Too many screens defined' warnings.",
+    "Either add /app/frontend/google-services.json or remove `android.googleServicesFile` from app.json to fix Expo config parse warning.",
+    "Run `cd /app/frontend && npx expo install --check` then `yarn install` to bump expo / expo-font / expo-router minor versions.",
+    "Replace deprecated `pointerEvents` prop with `style={{ pointerEvents: ... }}` (likely inside a custom component / View wrapper).",
+    "No backend changes needed — all 41 tests pass and AI integrations (Claude Sonnet 4.5 categorize + insights) work."
+  ],
+  "critical_code_review_comments": [
+    "Backend server.py is 1213 lines — fine for now but consider splitting into routers/{auth,transactions,budgets,goals,insights}.py if it grows further.",
+    "Good practices observed: env vars used, password_hash excluded from responses, _id excluded everywhere via projection, Pydantic validation, async motor, idempotency_key on push, unique indexes on email/user_id/session_token, TTL index on user_sessions.expires_at.",
+    "Minor: `_update_streak` always resets current_streak to 0 on a debit txn — this only seeds last_spend_date; the real streak math happens in GET /api/streak (days since last debit). Logic correct but the unused `last_date` local var can be removed (server.py:645)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/conftest.py (new)",
+    "/app/backend/tests/test_fynora_api.py (new)"
+  ],
+  "success_rate": {"backend": "100% (41/41)", "frontend": "100% smoke (login, dashboard, tabs, add-txn modal, scan-sms all functional)"},
+  "seed_data_creation": "test@fynora.app already seeded. Tests created additional throw-away users (test_new_*, test_reset_*) and a few transactions / one Food budget / one TEST_Bike goal under the main test account during the run. Goal and budget were deleted by the test teardown logic.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend test suite at /app/backend/tests/test_fynora_api.py — run via `pytest backend/tests/test_fynora_api.py -v`. Auth fixture (conftest.py) auto-creates test@fynora.app if missing. /api/register-push is intentionally expected to return 500/502 due to placeholder EMERGENT_PUSH_KEY — do not flag this. Insights uses real Claude Sonnet 4.5 via emergentintegrations and the EMERGENT_LLM_KEY in /app/backend/.env. Frontend lives at https://fynora-ai-finance.preview.emergentagent.com — login screen testIDs: login-email-input, login-password-input, login-submit-button, google-login-button, goto-signup-link. Dashboard testIDs: dashboard-scroll, quick-add, quick-sms, tab-home/tab-transactions/tab-budgets/tab-insights/tab-profile. Add-txn modal: amount-input, merchant-input, save-txn-button. Scan SMS: sms-input, parse-sms-button, load-demo-sms.",
+  "rca_of_issue": "N/A — no bugs found. Only minor Expo Router layout warnings (non-blocking) and deprecated pointerEvents prop somewhere in the tree."
+}
