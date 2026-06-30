@@ -29,7 +29,8 @@
         "android.permission.READ_SMS",
         "android.permission.POST_NOTIFICATIONS",
         "android.permission.CAMERA",
-        "android.permission.READ_MEDIA_IMAGES"
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
@@ -62,6 +63,12 @@
     ],
     "experiments": {
       "typedRoutes": false
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "092e3a24-7b3c-46d4-8f6d-dc36b5ccbe36"
+      }
     }
   }
 }
