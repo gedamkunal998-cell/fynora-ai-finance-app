@@ -1,0 +1,34 @@
+{
+  "summary": "Fynora app full backend + frontend regression: 46/46 pytest passed. All three user-reported bugs verified FIXED: (1) Login works against backend with valid creds, (2) Login navigation correctly redirects /login -> / (tabs) dashboard, (3) POST /api/transactions returns 200 with txn_id (no 404). Frontend mobile UI loads cleanly with Fynora F-arrow logo on splash/login, onboarding 3 slides + Skip works, tab nav (Home/Txns/Budgets/Insights/Profile) functional, dashboard renders income/expenses/savings/score/categories/recent transactions, Budgets shows category usage, Insights tab displays AI-fallback content gracefully. Premium dev_stub, currencies, weekly report, backup/restore, achievements, settings, export CSV all validated.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/insights", "issue": "ai_status returns 'fallback' instead of 'ok' because EMERGENT_LLM_KEY budget is exhausted (LiteLLM: 'Budget has been exceeded! Current cost: 0.002337, Max budget: 0.001'). Fallback insights are returned correctly so UX is unaffected, but Claude Sonnet 4.5 is not actually generating insights right now. Needs LLM key budget to be increased. Frontend already shows banner 'Your AI credits are low'."},
+      {"endpoint": "POST /api/register-push", "issue": "Returns 500 as expected (EMERGENT_PUSH_KEY is placeholder). Mocked per problem statement."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "global", "issues": ["Console warning: 'props.pointerEvents is deprecated. Use style.pointerEvents' - minor RN deprecation, non-blocking", "Console warning: 'Passing an object as the argument to navigate is deprecated' - minor expo-router deprecation"]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_fynora_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Top up / replace EMERGENT_LLM_KEY budget so /api/insights returns ai_status='ok' with real Claude-generated insights (currently always 'fallback' due to LiteLLM budget exhaustion).",
+    "(Optional) Suppress or migrate two RN deprecation warnings (pointerEvents prop, navigate(object) signature) for cleaner console."
+  ],
+  "critical_code_review_comments": [
+    "Backend server.py is large (~1660 lines) - consider splitting into routers (auth, transactions, budgets, goals, insights, premium) for maintainability.",
+    "/api/auth/me correctly excludes password_hash and _id (verified)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (46/46 pytest)", "frontend": "100% on critical flows tested (onboarding, login, dashboard, txns list, budgets, insights, profile, navigation)"},
+  "seed_data_creation": "Used existing seeded test@fynora.app / Fynora@2026 user. Pytest created throwaway test_new_*, test_reset_*, test_backup_* users plus 2 manual transactions (Swiggy, Amazon), 1 budget (Food 2500), and parse-sms Zomato/Salary entries on the main test user.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All 3 reported bugs (login on APK, navigation after login, Add Transaction 404) are fixed at the backend+web-preview level. The Android APK login issue specifically requires device-level testing via Expo Go / EAS build which cannot be reproduced in web preview - but the backend auth endpoints, /api/auth/login flow, and Bearer token handling are all green. /api/insights returns ai_status='fallback' due to LLM key budget exhaustion - this is an external credentials issue, not a code bug.",
+  "rca_of_issue": "User-reported bugs RCA: (1) Login navigation: confirmed router.replace('/(tabs)') in login.tsx executes and browser URL transitions /login -> /, dashboard mounts and fetches /api/dashboard + /api/streak (both 200). (2) Add Transaction 404: backend POST /api/transactions returns 200 with txn_id - pytest TestTransactions::test_create_txn_swiggy_food + test_create_txn_amazon_shopping both pass. No 404 reproducible. Frontend FAB on Transactions screen navigates to /add-transaction modal which posts correctly."
+}

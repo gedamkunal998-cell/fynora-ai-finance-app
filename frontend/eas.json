@@ -1,0 +1,36 @@
+{
+  "cli": {
+    "version": ">= 20.4.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://a0064790-ed63-4eb5-8930-981e2f22805b.preview.emergentagent.com"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://a0064790-ed63-4eb5-8930-981e2f22805b.preview.emergentagent.com"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://a0064790-ed63-4eb5-8930-981e2f22805b.preview.emergentagent.com"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
