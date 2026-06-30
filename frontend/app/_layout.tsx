@@ -56,21 +56,33 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (Platform.OS === "web") return;
+    // Only allow deeplinks to in-app routes (start with "/") OR https URLs whose
+    // host we explicitly trust. Drops anything else so a malicious notification
+    // cannot open arbitrary content.
+    const ALLOWED_HOSTS = ["fynora.app", "preview.emergentagent.com"];
+    const open = (url: string) => {
+      if (!url || typeof url !== "string") return;
+      if (url.startsWith("/")) {
+        router.push(url as any);
+        return;
+      }
+      try {
+        const u = new URL(url);
+        if (u.protocol === "https:" && ALLOWED_HOSTS.some((h) => u.hostname === h || u.hostname.endsWith("." + h))) {
+          Linking.openURL(url);
+        }
+      } catch {
+        // ignore malformed url
+      }
+    };
     const sub = Notifications.addNotificationResponseReceivedListener((resp) => {
       const data = (resp.notification.request.content.data || {}) as any;
-      const url = data.deeplink || data.action_url;
-      if (!url) return;
-      if (typeof url === "string" && url.startsWith("http")) Linking.openURL(url);
-      else if (typeof url === "string") router.push(url as any);
+      open(data.deeplink || data.action_url);
     });
     Notifications.getLastNotificationResponseAsync().then((resp) => {
       if (!resp) return;
       const data = (resp.notification.request.content.data || {}) as any;
-      const url = data.deeplink || data.action_url;
-      if (url) {
-        if (typeof url === "string" && url.startsWith("http")) Linking.openURL(url);
-        else if (typeof url === "string") router.push(url as any);
-      }
+      open(data.deeplink || data.action_url);
     });
     return () => {
       sub.remove();

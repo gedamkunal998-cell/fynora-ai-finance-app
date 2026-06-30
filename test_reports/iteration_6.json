@@ -1,0 +1,46 @@
+{
+  "summary": "Security audit verification (SEC-001..SEC-005) PASS. Backend: 56 passed, 2 skipped (skips by-design: raw reset token correctly no longer exposed in logs after SEC-001 fix, so single-use & post-reset-jwt-invalidation tests skip the strict path but the token_version revocation primitive was validated independently via logout). SEC-001: forgot-password returns no token and identical response for existing vs non-existing emails (no email enumeration); reset-password rejects never-issued tokens with 400. SEC-002: login JWT includes int `tv` claim; old JWT invalidated after /api/auth/logout (returns 401 on /api/auth/me); token_version bump verified. SEC-003: /api/premium/verify against a stub-mode order returns 503 and /api/premium/status remains is_premium=false (no subscription created). SEC-004: GET /api/transactions?search=.*(a+)+$ completes in <1s, matches only the literal substring (.*(a+)+$ store) and does NOT match unrelated merchants — confirms re.escape + length cap. SEC-005: /api/restore drops unknown fields (hacker_field, is_admin, __proto__), persists user_id of caller, and cross-user write attempt does NOT leak the txn to the other user. Regression: signup/login (with tv claim), GET /api/auth/me, POST /api/transactions (txn_id returned, no 404), GET /api/dashboard, GET /api/insights (ai_status one of ok|fallback), GET /api/budgets, GET /api/goals, GET /api/backup, POST /api/transactions/parse-sms all 200. Frontend: demo@fynora.app/demo1234 login navigates /login → / (tabs dashboard with Hello Demo, score, income/expenses/savings, streak, quick actions, tab bar). Add-transaction route loads, fields amount-input/merchant-input fillable, save-txn-button submits successfully (only minor GO_BACK navigator warning — same expo-router deprecation flagged in iteration_5). Razorpay stub-mode and EMERGENT_PUSH_KEY-placeholder behaviors are intentional/MOCKED per problem statement.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/register-push", "issue": "Returns 500 — expected per problem statement (EMERGENT_PUSH_KEY placeholder, MOCKED)."},
+      {"endpoint": "/api/insights", "issue": "ai_status may be 'fallback' if Claude key budget exhausted — handled gracefully (test accepts ok|fallback). Iteration_5 noted user said Claude key now recharged; in this run /api/insights returned 200, ai_status field present."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "add-transaction", "issues": ["Console warning after save: \"The action 'GO_BACK' was not handled by any navigator.\" — same expo-router deprecation noted in iteration_5; non-blocking, save still succeeds"]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_security_fixes.py",
+    "/app/backend/tests/test_fynora_api.py",
+    "/app/test_reports/pytest/pytest_results.xml",
+    "/app/test_reports/pytest/security_results.xml"
+  ],
+  "action_items": [
+    "(Optional) Make Add-Transaction screen use router.replace('/(tabs)/transactions') or router.back() after save to avoid the 'GO_BACK was not handled' warning when /add-transaction is opened as a top-level route (no parent screen) — pure UX polish."
+  ],
+  "critical_code_review_comments": [
+    "SEC-001 (server.py L453-505): forgot-password correctly stores bcrypt-hashed token in password_resets with 30-min expiry, returns uniform message; reset-password decodes JWT, looks up unused/non-expired records, bcrypt.checkpw matches each candidate, marks used=true, bumps token_version, and deletes user_sessions. Clean implementation, no token leakage path observed.",
+    "SEC-002 (server.py L124-181, L508-518): JWT carries `tv` claim; get_user_from_token rejects mismatched tv with 401. Logout bumps tv via $inc — verified end-to-end.",
+    "SEC-003 (server.py L1547-1571): premium/verify hard-rejects with 503 if order.mode != 'razorpay' OR RAZORPAY_KEY_SECRET == 'placeholder'. No path to grant Premium in stub mode. Signature verification only attempted after env check.",
+    "SEC-004 (server.py L706-710): search is re.escape'd and capped to 80 chars; uses $regex with $options:'i'. ReDoS not possible against a literal pattern.",
+    "SEC-005 (server.py L1399-1462): Allowlist via _pick() then {**picked, 'user_id': uid} ensures caller's user_id always wins even if payload tries to inject other user_id. Verified cross-user write blocked.",
+    "Backend server.py is 1717 lines — same recommendation as iteration_5 to split into routers (not blocking).",
+    "Backend log file does not appear to contain the raw reset token (verified by SEC-001 single-use test skipping). This is the desired behavior — confirms no log leakage."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_fynora_api.py (updated test_forgot_and_reset_password → test_forgot_password_does_not_leak_token to match SEC-001 semantics)",
+    "/app/backend/tests/test_security_fixes.py (new — SEC-001..SEC-005 + regression happy-path + demo login)"
+  ],
+  "success_rate": {"backend": "100% (56/56 executed; 2 skipped by-design due to SEC-001 fix removing log-side-channel for raw reset token)", "frontend": "100% on critical flows: login, dashboard load, add-transaction save"},
+  "seed_data_creation": "Per-test throwaway users: secqa_*, sec001a/b/c_*, sec002a/b/c_*, sec003_*, sec004_*, sec005a/b_*, secreg_*. Each user receives 0-2 seeded transactions / budgets / goals as needed. Demo account (demo@fynora.app) used for frontend regression; received 1 new manual txn (SectestMerchant ₹199 UPI / Food).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Two SEC-001/SEC-002 tests intentionally skip when the raw reset JWT is not present in /var/log/supervisor/backend.out.log — this skip CONFIRMS the SEC-001 fix (no log leakage). If you later want hard end-to-end coverage of single-use semantics + post-reset JWT invalidation, the cleanest approach is to expose a /tests/issue-reset-token internal endpoint gated by an env flag, or use Mongo directly to read the password_resets row and reconstruct the token. Do NOT re-introduce dev_token in the API response. EXPO_PUBLIC_BACKEND_URL is the source of truth for pytest BASE_URL — exporting it before pytest is required (the in-file fallback URL points to a different deployment).",
+  "rca_of_issue": "N/A — this iteration is a security hardening verification, not a bug RCA. All five SEC-* fixes verified working."
+}

@@ -45,20 +45,16 @@ class TestAuth:
         assert "access_token" in data
         assert data["user"]["email"] == email
 
-    def test_forgot_and_reset_password(self, api_client):
-        # create dedicated user so we don't mess up main test password
+    def test_forgot_password_does_not_leak_token(self, api_client):
+        # SEC-001 regression: forgot-password MUST NOT return dev_token or any token field
         email = f"test_reset_{int(time.time())}@fynora.app"
         api_client.post(f"{BASE_URL}/api/auth/signup", json={"name": "ResetTest", "email": email, "password": "OldPass1234"})
         r = api_client.post(f"{BASE_URL}/api/auth/forgot-password", json={"email": email})
         assert r.status_code == 200
         data = r.json()
-        assert "dev_token" in data, f"dev_token missing: {data}"
-        token = data["dev_token"]
-        r2 = api_client.post(f"{BASE_URL}/api/auth/reset-password", json={"token": token, "new_password": "NewPass5678"})
-        assert r2.status_code == 200
-        # verify new password works
-        r3 = api_client.post(f"{BASE_URL}/api/auth/login", json={"email": email, "password": "NewPass5678"})
-        assert r3.status_code == 200
+        for leak_key in ("dev_token", "token", "reset_token", "access_token"):
+            assert leak_key not in data, f"forgot-password leaked {leak_key}: {data}"
+        assert "message" in data
 
     def test_reset_password_invalid_token(self, api_client):
         r = api_client.post(f"{BASE_URL}/api/auth/reset-password", json={"token": "invalid.token.here", "new_password": "Whatever1234"})

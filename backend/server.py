@@ -121,22 +121,24 @@ def verify_password(plain: str, hashed: str) -> bool:
         return False
 
 
-def create_jwt(user_id: str, remember: bool = False) -> str:
+def create_jwt(user_id: str, remember: bool = False, token_version: int = 0) -> str:
     minutes = ACCESS_TOKEN_REMEMBER_MINUTES if remember else ACCESS_TOKEN_EXPIRE_MINUTES
     payload = {
         "sub": user_id,
         "iat": now_utc(),
         "exp": now_utc() + timedelta(minutes=minutes),
+        "tv": token_version,
     }
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
-def create_reset_token(user_id: str) -> str:
+def create_reset_token(user_id: str, token_version: int = 0) -> str:
     payload = {
         "sub": user_id,
         "type": "password_reset",
         "iat": now_utc(),
         "exp": now_utc() + timedelta(minutes=30),
+        "tv": token_version,
     }
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
@@ -169,6 +171,10 @@ async def get_user_from_token(authorization: Optional[str]) -> dict:
     user = await db.users.find_one({"user_id": payload["sub"]}, {"_id": 0, "password_hash": 0})
     if not user:
         raise HTTPException(401, "User not found")
+    # token_version check: any logout/password-reset bumps the user's version
+    # so all previously issued JWTs become invalid.
+    if int(payload.get("tv", 0)) != int(user.get("token_version", 0)):
+        raise HTTPException(401, "Token revoked")
     return user
 
 
@@ -349,10 +355,11 @@ async def signup(body: SignupReq):
         "current_streak": 0,
         "best_streak": 0,
         "last_spend_date": None,
+        "token_version": 0,
         "created_at": now_utc(),
     }
     await db.users.insert_one(doc)
-    token = create_jwt(user_id, body.remember)
+    token = create_jwt(user_id, body.remember, 0)
     return {
         "access_token": token,
         "user": {"user_id": user_id, "name": body.name, "email": body.email.lower(), "provider": "email"},
@@ -366,7 +373,7 @@ async def login(body: LoginReq):
         raise HTTPException(401, "Invalid credentials")
     if not verify_password(body.password, user["password_hash"]):
         raise HTTPException(401, "Invalid credentials")
-    token = create_jwt(user["user_id"], body.remember)
+    token = create_jwt(user["user_id"], body.remember, int(user.get("token_version", 0)))
     return {
         "access_token": token,
         "user": {
@@ -447,11 +454,21 @@ async def me(authorization: Optional[str] = Header(None)):
 async def forgot(body: ForgotReq):
     user = await db.users.find_one({"email": body.email.lower()})
     if user and user.get("password_hash"):
-        token = create_reset_token(user["user_id"])
-        # In production, send via email. For dev/demo: log + return.
-        logger.info(f"[Fynora] Password reset link for {body.email}: token={token}")
-        return {"message": "Reset link sent if account exists", "dev_token": token}
-    return {"message": "Reset link sent if account exists"}
+        token = create_reset_token(user["user_id"], int(user.get("token_version", 0)))
+        # Store token hash for single-use verification; deliver via email only.
+        # IMPORTANT: never log or return the raw token — that would enable
+        # account takeover by anyone who knows the email.
+        token_hash = bcrypt.hashpw(token.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        await db.password_resets.insert_one({
+            "user_id": user["user_id"],
+            "token_hash": token_hash,
+            "used": False,
+            "created_at": now_utc(),
+            "expires_at": now_utc() + timedelta(minutes=30),
+        })
+        # TODO: send `token` via transactional email (SendGrid/Resend) — never in response.
+    # Uniform response prevents email enumeration.
+    return {"message": "If an account exists for that email, a reset link has been sent."}
 
 
 @api.post("/auth/reset-password")
@@ -459,12 +476,32 @@ async def reset(body: ResetReq):
     payload = decode_jwt(body.token)
     if not payload or payload.get("type") != "password_reset":
         raise HTTPException(400, "Invalid or expired token")
+    user_id = payload["sub"]
+    # token must match an unused, non-expired reset record (single-use)
+    candidates = await db.password_resets.find(
+        {"user_id": user_id, "used": False, "expires_at": {"$gt": now_utc()}},
+        {"_id": 1, "token_hash": 1},
+    ).to_list(20)
+    matched = None
+    for c in candidates:
+        try:
+            if bcrypt.checkpw(body.token.encode("utf-8"), c["token_hash"].encode("utf-8")):
+                matched = c
+                break
+        except ValueError:
+            continue
+    if not matched:
+        raise HTTPException(400, "Invalid or expired token")
+    # Update password AND bump token_version so all prior JWTs are invalidated.
     res = await db.users.update_one(
-        {"user_id": payload["sub"]},
-        {"$set": {"password_hash": hash_password(body.new_password)}},
+        {"user_id": user_id},
+        {"$set": {"password_hash": hash_password(body.new_password)}, "$inc": {"token_version": 1}},
     )
     if res.matched_count == 0:
         raise HTTPException(404, "User not found")
+    await db.password_resets.update_one({"_id": matched["_id"]}, {"$set": {"used": True, "used_at": now_utc()}})
+    # Invalidate every Google session for this user too.
+    await db.user_sessions.delete_many({"user_id": user_id})
     return {"message": "Password updated"}
 
 
@@ -472,7 +509,12 @@ async def reset(body: ResetReq):
 async def logout(authorization: Optional[str] = Header(None)):
     if authorization and authorization.startswith("Bearer "):
         token = authorization.split(" ", 1)[1]
+        # Drop matching Google session if any.
         await db.user_sessions.delete_one({"session_token": token})
+        # For email JWTs, bump token_version to invalidate every issued token.
+        payload = decode_jwt(token)
+        if payload and payload.get("sub"):
+            await db.users.update_one({"user_id": payload["sub"]}, {"$inc": {"token_version": 1}})
     return {"message": "logged out"}
 
 
@@ -662,7 +704,10 @@ async def list_txns(
     if category and category != "All":
         q["category"] = category
     if search:
-        q["merchant"] = {"$regex": search, "$options": "i"}
+        # Treat user input as a literal substring (escape regex metacharacters) and
+        # cap length to prevent ReDoS.
+        safe = re.escape(search[:80])
+        q["merchant"] = {"$regex": safe, "$options": "i"}
     items = await db.transactions.find(q, {"_id": 0}).sort("date", -1).to_list(1000)
     return [_serialize_txn(t) for t in items]
 
@@ -1355,6 +1400,16 @@ class RestoreReq(BaseModel):
 async def restore(body: RestoreReq, authorization: Optional[str] = Header(None)):
     user = await get_user_from_token(authorization)
     uid = user["user_id"]
+    # Allowlist of fields that may be restored from a user-supplied backup.
+    # Anything else (extra/unknown keys) is silently dropped to prevent
+    # mass-assignment / property injection.
+    TXN_FIELDS = {"txn_id", "amount", "type", "merchant", "category", "payment_method", "description", "source", "date", "created_at"}
+    BUDGET_FIELDS = {"budget_id", "category", "amount", "period_month", "period_year", "created_at"}
+    GOAL_FIELDS = {"goal_id", "name", "target_amount", "current_amount", "target_date", "icon", "created_at"}
+
+    def _pick(raw: Dict[str, Any], allowed: set) -> Dict[str, Any]:
+        return {k: v for k, v in raw.items() if k in allowed}
+
     if body.replace:
         await db.transactions.delete_many({"user_id": uid})
         await db.budgets.delete_many({"user_id": uid})
@@ -1362,8 +1417,7 @@ async def restore(body: RestoreReq, authorization: Optional[str] = Header(None))
     added = {"transactions": 0, "budgets": 0, "goals": 0}
     if body.transactions:
         for raw in body.transactions:
-            doc = {**raw, "user_id": uid}
-            doc.pop("_id", None)
+            doc = {**_pick(raw, TXN_FIELDS), "user_id": uid}
             if "txn_id" not in doc:
                 doc["txn_id"] = gen_id("txn")
             if isinstance(doc.get("date"), str):
@@ -1383,8 +1437,7 @@ async def restore(body: RestoreReq, authorization: Optional[str] = Header(None))
                 pass
     if body.budgets:
         for raw in body.budgets:
-            doc = {**raw, "user_id": uid}
-            doc.pop("_id", None)
+            doc = {**_pick(raw, BUDGET_FIELDS), "user_id": uid}
             if "budget_id" not in doc:
                 doc["budget_id"] = gen_id("bud")
             try:
@@ -1398,8 +1451,7 @@ async def restore(body: RestoreReq, authorization: Optional[str] = Header(None))
                 pass
     if body.goals:
         for raw in body.goals:
-            doc = {**raw, "user_id": uid}
-            doc.pop("_id", None)
+            doc = {**_pick(raw, GOAL_FIELDS), "user_id": uid}
             if "goal_id" not in doc:
                 doc["goal_id"] = gen_id("goal")
             try:
@@ -1501,18 +1553,22 @@ async def premium_verify(body: VerifyReq, authorization: Optional[str] = Header(
     plan = PREMIUM_PLANS.get(order["plan_id"])
     if not plan:
         raise HTTPException(400, "Plan invalid")
-    if order.get("mode") == "razorpay" and RAZORPAY_KEY_SECRET != "placeholder":
-        try:
-            import razorpay
-            rzp = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
-            rzp.utility.verify_payment_signature({
-                "razorpay_order_id": body.razorpay_order_id,
-                "razorpay_payment_id": body.razorpay_payment_id,
-                "razorpay_signature": body.razorpay_signature,
-            })
-        except Exception as e:
-            logger.warning(f"Signature verify failed: {e}")
-            raise HTTPException(400, "Signature verification failed")
+    # CRITICAL: only grant Premium when a real Razorpay signature is verified.
+    # Stub orders (placeholder keys) must NEVER produce a paid subscription
+    # because an attacker could otherwise self-grant Premium with bogus IDs.
+    if order.get("mode") != "razorpay" or RAZORPAY_KEY_SECRET == "placeholder":
+        raise HTTPException(503, "Payments not configured. Set live Razorpay keys to enable verification.")
+    try:
+        import razorpay
+        rzp = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+        rzp.utility.verify_payment_signature({
+            "razorpay_order_id": body.razorpay_order_id,
+            "razorpay_payment_id": body.razorpay_payment_id,
+            "razorpay_signature": body.razorpay_signature,
+        })
+    except Exception as e:
+        logger.warning(f"Signature verify failed: {e}")
+        raise HTTPException(400, "Signature verification failed")
     period_days = 30 if plan["period"] == "month" else 365
     expires_at = now_utc() + timedelta(days=period_days)
     await db.subscriptions.update_one(
