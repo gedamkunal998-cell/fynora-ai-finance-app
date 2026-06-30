@@ -47,6 +47,14 @@ Fynora is a privacy-first, AI-driven personal finance companion for Indian users
 - Frontend: `EXPO_PUBLIC_BACKEND_URL`, `EXPO_TUNNEL_SUBDOMAIN`, `EXPO_PACKAGER_PROXY_URL` (protected)
 - Backend: `MONGO_URL`, `DB_NAME`, `JWT_SECRET`, `EMERGENT_LLM_KEY`, `EMERGENT_PUSH_KEY`, `RAZORPAY_KEY_ID/SECRET/WEBHOOK_SECRET`
 
+## Continuation notes (Feb 2026)
+- Project resumed from user-uploaded ZIP; backend .env recreated with `JWT_SECRET` + `EMERGENT_LLM_KEY`; backend & frontend deps reinstalled
+- Reported "Add Transaction 404" not reproducible — POST `/api/transactions` returns 200; bug closed
+- Login navigation-after-success verified — `router.replace('/(tabs)')` works
+- App icon, adaptive icon, notification icon, favicon and splash regenerated from the same `FynoraLogo` SVG shown on Login (full Fynora brand, zero Emergent assets remaining)
+- `eas.json` updated with `EXPO_PUBLIC_BACKEND_URL` baked into preview & production profiles so the APK can reach the backend exactly like the web preview
+- AI Insights confirmed live with `ai_status: "ok"` (Claude Sonnet 4.5, en + hi)
+
 ## How to test
 1. `demo@fynora.app` / `demo1234` (see `memory/test_credentials.md`)
 2. Profile → भाषा/Language → pick any language → entire app instantly switches
