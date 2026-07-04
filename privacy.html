@@ -1,168 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fynora Privacy Policy</title>
-
-<style>
-body{
-max-width:900px;
-margin:auto;
-padding:40px 20px;
-font-family:Arial,Helvetica,sans-serif;
-line-height:1.7;
-color:#222;
-}
-
-h1,h2{
-color:#0F6FFF;
-}
-
-a{
-color:#0F6FFF;
-text-decoration:none;
-}
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0D1117" />
+  <title>Privacy Policy · Fynora</title>
+  <meta name="description" content="Fynora Privacy Policy — how we collect, use and protect your data. Bank-grade security, no data selling, full user control." />
+  <link rel="canonical" href="https://fynora.app/privacy.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <header class="header scrolled" id="header">
+    <div class="nav-inner">
+      <a href="/" class="brand">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="p1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D09C"/><stop offset="0.5" stop-color="#00B4D8"/><stop offset="1" stop-color="#6366F1"/></linearGradient></defs><path d="M16 4 H48 A12 12 0 0 1 60 16 V48 A12 12 0 0 1 48 60 H16 A12 12 0 0 1 4 48 V16 A12 12 0 0 1 16 4 Z" fill="#0D1117" stroke="url(#p1)" stroke-width="1.5"/><path d="M18 14 H44 V22 H26 V30 H40 V38 H26 V50 H18 Z" fill="url(#p1)"/><path d="M34 44 L46 32 M40 32 H46 V38" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span class="brand-text">Fynora</span>
+      </a>
+      <div class="nav-cta">
+        <a href="/" class="btn btn-ghost btn-sm">Home</a>
+        <a href="/contact.html" class="btn btn-primary btn-sm">Contact</a>
+      </div>
+    </div>
+  </header>
 
-<h1>Fynora Privacy Policy</h1>
+  <main class="legal-wrap">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <div class="updated">Last updated: 1 July 2026</div>
 
-<p><strong>Effective Date:</strong> June 2026</p>
+      <p>Fynora (“we”, “our”, “us”) values your privacy. This Privacy Policy explains what data we collect, how we use it, how we protect it, and the choices you have. Fynora is an AI-powered personal finance app operated as an independent product available on the Google Play Store and Apple App Store.</p>
 
-<p>Welcome to <strong>Fynora - Your AI Finance Companion</strong>.</p>
+      <div class="callout">
+        <strong>Short version.</strong>
+        <p>We collect only what is needed to run the app. We never sell your data. We never share your data with advertisers. You can permanently delete your account and all data anytime by emailing <a href="mailto:fynorasupport@gmail.com">fynorasupport@gmail.com</a>.</p>
+      </div>
 
-<p>Your privacy is important to us. This Privacy Policy explains what information we collect, how we use it, and the choices you have regarding your data.</p>
+      <h2>1. Information we collect</h2>
+      <h3>1.1 Account information</h3>
+      <ul>
+        <li>Name, email address, and password (hashed with bcrypt — we never store your plaintext password).</li>
+        <li>Google account name, email and profile picture, if you choose to sign in with Google.</li>
+      </ul>
+      <h3>1.2 Financial information you enter or import</h3>
+      <ul>
+        <li>Transactions you add manually (amount, merchant, category, date, notes).</li>
+        <li>Bank SMS text that you paste into the app or that the app parses on your device.</li>
+        <li>Budgets, savings goals, and category preferences.</li>
+      </ul>
+      <h3>1.3 Device information</h3>
+      <ul>
+        <li>Device type, operating system, app version and language, used for crash reporting and app compatibility.</li>
+        <li>Push notification token, only if you enable notifications.</li>
+      </ul>
+      <h3>1.4 Usage information</h3>
+      <ul>
+        <li>Aggregated, anonymised analytics (feature usage counts, screen loads) used only to improve the app. Never sold, never used for advertising.</li>
+      </ul>
 
-<h2>1. Information We Collect</h2>
+      <h2>2. Permissions we request</h2>
+      <h3>2.1 SMS permission (Android)</h3>
+      <p>The <code>READ_SMS</code> permission is optional and used only to help auto-detect bank transaction messages so you don’t have to enter them by hand. Fynora reads only messages that match bank-transaction patterns. You may deny this permission and continue using the app fully — you can paste SMS text manually or add transactions by hand. SMS messages are processed on your device; the raw SMS text is never sent to our servers.</p>
+      <h3>2.2 Camera permission</h3>
+      <p>Used only when you tap “Scan Receipt”. The camera opens to capture one receipt image at a time. Fynora does not run the camera in the background.</p>
+      <h3>2.3 Storage / Photo Library permission</h3>
+      <p>Used only when you choose “Pick from Gallery” to upload a receipt image. Fynora does not scan your gallery beyond the image you select.</p>
+      <h3>2.4 Notifications permission</h3>
+      <p>Used only to deliver budget-overrun alerts, streak achievements and bill reminders that you enable. You may turn off notifications anytime from device settings.</p>
 
-<h3>Account Information</h3>
+      <h2>3. How we use your data</h2>
+      <ul>
+        <li>To run the core features you asked for: expense tracking, budgets, goals, insights, reports.</li>
+        <li>To send AI insights generated by Anthropic Claude Sonnet 4.5. We send only aggregated numbers (income, expenses, category totals) — never your identity, name or email.</li>
+        <li>To secure your account, prevent fraud, and enforce our Terms.</li>
+        <li>To communicate essential service updates (major changes to this policy, security notices).</li>
+      </ul>
 
-<ul>
-<li>Name</li>
-<li>Email Address</li>
-<li>Profile Photo (Optional)</li>
-</ul>
+      <h2>4. AI processing</h2>
+      <p>Fynora uses Anthropic’s Claude Sonnet 4.5 model to generate spending insights, categorise unknown merchants, and read receipts (Claude Vision). Requests to Claude:</p>
+      <ul>
+        <li>Do not include your name, email, phone, or any personal identifier.</li>
+        <li>Are not used by Anthropic to train third-party models (per Anthropic’s enterprise data policy).</li>
+        <li>Contain only anonymised financial figures, merchant names or the receipt image you chose to scan.</li>
+      </ul>
 
-<h3>Financial Information</h3>
+      <h2>5. How we protect your data</h2>
+      <ul>
+        <li>All network traffic uses TLS 1.3.</li>
+        <li>Passwords are hashed with bcrypt; we cannot see your password even in our own database.</li>
+        <li>Session tokens are short-lived JWTs and can be revoked instantly at password reset or logout.</li>
+        <li>Database is encrypted at rest with AES-256 on managed cloud infrastructure with 24/7 monitoring.</li>
+        <li>Regular security reviews and dependency audits.</li>
+      </ul>
 
-<ul>
-<li>Transactions added manually</li>
-<li>Bank transaction SMS (only after permission)</li>
-<li>Receipt images uploaded by you</li>
-<li>AI-generated categories and insights</li>
-<li>Budgets and Savings Goals</li>
-</ul>
+      <h2>6. Data sharing</h2>
+      <p>We do <strong>not</strong> sell your personal data to anyone, ever. We do not share it with advertisers. We share data only with the following categories of processors, strictly to run the app:</p>
+      <ul>
+        <li>Anthropic (AI processing — anonymised data only).</li>
+        <li>Google Cloud / MongoDB Atlas (encrypted database and application hosting).</li>
+        <li>Razorpay (only if you subscribe to Fynora Pro — payment data is handled by Razorpay under their own PCI-DSS Level-1 compliance).</li>
+        <li>Push-notification providers, only if you enable notifications.</li>
+      </ul>
 
-<h3>Device Information</h3>
+      <h2>7. Your rights</h2>
+      <p>Under the Digital Personal Data Protection Act, 2023 (DPDP Act, India) and comparable laws in other jurisdictions, you have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> a copy of your data — use the in-app “Backup” feature to export a full JSON of your account.</li>
+        <li><strong>Correct</strong> inaccurate data — edit any transaction, budget, goal, or profile field inside the app.</li>
+        <li><strong>Delete</strong> your account and all data — email <a href="mailto:fynorasupport@gmail.com">fynorasupport@gmail.com</a> with subject “Delete My Account”. See our <a href="/delete-account.html">Delete Account</a> page.</li>
+        <li><strong>Withdraw consent</strong> for optional permissions (SMS, camera, notifications) anytime from device settings.</li>
+        <li><strong>Object</strong> to the processing of your data — email us and we’ll respond within 30 days.</li>
+      </ul>
 
-<ul>
-<li>Device Model</li>
-<li>Operating System</li>
-<li>Application Version</li>
-<li>Crash Logs</li>
-<li>Diagnostic Information</li>
-</ul>
+      <h2>8. Data retention</h2>
+      <p>We retain your data only for as long as your account is active. When you request account deletion, all your personal data is permanently erased from our production systems within 7 business days. Encrypted backup copies are purged within 30 days of your deletion request.</p>
 
-<h2>2. SMS Permission</h2>
+      <h2>9. Children’s privacy</h2>
+      <p>Fynora is not directed to individuals under the age of 18. We do not knowingly collect data from children. If you believe a child has provided us data, please email us and we will delete it immediately.</p>
 
-<p>Fynora requests SMS permission only after your explicit consent.</p>
+      <h2>10. Changes to this policy</h2>
+      <p>We may update this Privacy Policy from time to time. Material changes will be notified via in-app banner or email. The “Last updated” date at the top of this page reflects the most recent version.</p>
 
-<p>This permission is used only for:</p>
+      <h2>11. Contact</h2>
+      <p>For any privacy question, data-access request or complaint, contact our Data Protection point of contact at:</p>
+      <div class="callout">
+        <strong>Email:</strong> <a href="mailto:fynorasupport@gmail.com">fynorasupport@gmail.com</a><br />
+        <strong>Response time:</strong> Within 30 days, usually within 24 hours.
+      </div>
+    </div>
+  </main>
 
-<ul>
-<li>Detecting bank transaction SMS</li>
-<li>Extracting transaction amount, merchant, bank and date</li>
-<li>Automatically creating expense records</li>
-</ul>
-
-<p>We never use SMS for:</p>
-
-<ul>
-<li>Reading personal conversations</li>
-<li>Marketing</li>
-<li>Advertising</li>
-<li>Selling user data</li>
-</ul>
-
-<h2>3. Camera & Gallery</h2>
-
-<p>Camera and Gallery permissions are used only for:</p>
-
-<ul>
-<li>Scanning receipts</li>
-<li>Uploading receipts</li>
-<li>Extracting receipt information using AI</li>
-</ul>
-
-<h2>4. AI Processing</h2>
-
-<p>Fynora uses AI to:</p>
-
-<ul>
-<li>Categorize expenses</li>
-<li>Generate financial insights</li>
-<li>Analyze receipts</li>
-<li>Provide spending recommendations</li>
-</ul>
-
-<h2>5. Payments</h2>
-
-<p>Premium subscriptions are processed securely through Razorpay.</p>
-
-<p>Fynora never stores:</p>
-
-<ul>
-<li>Card Numbers</li>
-<li>UPI PIN</li>
-<li>Bank Passwords</li>
-</ul>
-
-<h2>6. Data Sharing</h2>
-
-<p>We never sell or rent your data.</p>
-
-<p>Information may only be shared with trusted service providers required for:</p>
-
-<ul>
-<li>Authentication</li>
-<li>Cloud Storage</li>
-<li>AI Processing</li>
-<li>Payment Processing</li>
-</ul>
-
-<h2>7. Data Security</h2>
-
-<p>We use industry-standard security practices to protect your information.</p>
-
-<h2>8. Your Rights</h2>
-
-<p>You may:</p>
-
-<ul>
-<li>Access your data</li>
-<li>Update your information</li>
-<li>Delete your account</li>
-<li>Request deletion of financial information</li>
-</ul>
-
-<h2>9. Children's Privacy</h2>
-
-<p>Fynora is not intended for children under 13 years of age.</p>
-
-<h2>10. Changes</h2>
-
-<p>We may update this Privacy Policy periodically.</p>
-
-<h2>11. Contact Us</h2>
-
-<p>Email:</p>
-
-<p><strong>fynorasupport@gmail.com</strong></p>
-
-<p>© 2026 Fynora. All Rights Reserved.</p>
-
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© <span id="yr">2026</span> Fynora. All Rights Reserved.</div>
+        <div><a href="/">Home</a> · <a href="/terms.html">Terms</a> · <a href="/delete-account.html">Delete Account</a> · <a href="/contact.html">Contact</a></div>
+      </div>
+    </div>
+  </footer>
+  <script src="/script.js" defer></script>
 </body>
 </html>

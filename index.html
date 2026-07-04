@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="theme-color" content="#0D1117" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Fynora — Your AI Finance Companion | Smart Personal Finance App</title>
+  <meta name="description" content="Fynora is an AI-powered personal finance app. Track expenses, plan budgets, set savings goals, scan receipts and get intelligent spending insights — all in your pocket." />
+  <meta name="keywords" content="Fynora, AI finance app, personal finance, expense tracker, budget planner, savings goals, receipt scanner, SMS expense tracking, spending insights, money management India" />
+  <meta name="author" content="Fynora" />
+  <link rel="canonical" href="https://fynora.app/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fynora" />
+  <meta property="og:title" content="Fynora — Your AI Finance Companion" />
+  <meta property="og:description" content="Track expenses, plan budgets, grow savings — powered by AI. Fynora is your intelligent finance companion." />
+  <meta property="og:url" content="https://fynora.app/" />
+  <meta property="og:image" content="https://fynora.app/assets/og-image.svg" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fynora — Your AI Finance Companion" />
+  <meta name="twitter:description" content="AI-powered personal finance app. Track expenses, plan budgets, grow savings." />
+  <meta name="twitter:image" content="https://fynora.app/assets/og-image.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="/assets/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Fynora",
+    "operatingSystem": "Android, iOS",
+    "applicationCategory": "FinanceApplication",
+    "description": "AI-powered personal finance app that helps users track expenses, plan budgets, set savings goals and understand spending using Claude AI.",
+    "url": "https://fynora.app/",
+    "author": { "@type": "Organization", "name": "Fynora", "email": "fynorasupport@gmail.com" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "1247" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Fynora",
+    "url": "https://fynora.app/",
+    "email": "fynorasupport@gmail.com",
+    "logo": "https://fynora.app/assets/favicon.svg",
+    "sameAs": []
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D09C"/><stop offset="0.5" stop-color="#00B4D8"/><stop offset="1" stop-color="#6366F1"/></linearGradient></defs>
+      <path d="M16 4 H48 A12 12 0 0 1 60 16 V48 A12 12 0 0 1 48 60 H16 A12 12 0 0 1 4 48 V16 A12 12 0 0 1 16 4 Z" fill="#0D1117" stroke="url(#lg)" stroke-width="1.5"/>
+      <path d="M18 14 H44 V22 H26 V30 H40 V38 H26 V50 H18 Z" fill="url(#lg)"/>
+      <path d="M34 44 L46 32 M40 32 H46 V38" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <div style="color: rgba(255,255,255,0.5); font-size: 0.85rem; letter-spacing: 3px;">FYNORA</div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="nav-inner">
+      <a href="#top" class="brand" aria-label="Fynora home">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D09C"/><stop offset="0.5" stop-color="#00B4D8"/><stop offset="1" stop-color="#6366F1"/></linearGradient></defs>
+          <path d="M16 4 H48 A12 12 0 0 1 60 16 V48 A12 12 0 0 1 48 60 H16 A12 12 0 0 1 4 48 V16 A12 12 0 0 1 16 4 Z" fill="#0D1117" stroke="url(#bg1)" stroke-width="1.5"/>
+          <path d="M18 14 H44 V22 H26 V30 H40 V38 H26 V50 H18 Z" fill="url(#bg1)"/>
+          <path d="M34 44 L46 32 M40 32 H46 V38" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="brand-text">Fynora</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#features">Features</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#security">Security</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-ghost btn-sm">Contact</a>
+        <a href="#download" class="btn btn-primary btn-sm">Get the App</a>
+        <button class="hamburger" id="burger" aria-label="Toggle menu"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- HERO -->
+  <section class="hero container">
+    <div class="hero-grid">
+      <div class="reveal">
+        <div class="hero-eyebrow"><span class="dot"></span> Powered by Claude Sonnet 4.5 · Made for India</div>
+        <h1>Your money, finally<br /><span class="gradient">making sense.</span></h1>
+        <p class="lead">Fynora is your intelligent finance companion. Track every rupee, plan smart budgets, scan receipts in a tap and get AI insights that actually understand how you spend — in 11 Indian languages.</p>
+        <div class="hero-cta">
+          <a href="#download" class="btn btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Download App
+          </a>
+          <a href="#contact" class="btn btn-ghost btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V20a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3.09a2 2 0 0 1 2 1.72c.13.98.36 1.94.7 2.86a2 2 0 0 1-.45 2.11L8.09 10.09a16 16 0 0 0 6 6l1.4-1.36a2 2 0 0 1 2.11-.45c.92.34 1.88.57 2.86.7A2 2 0 0 1 22 16.92z"/></svg>
+            Contact Sales
+          </a>
+        </div>
+        <div class="hero-badges">
+          <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m20 6-11 11-5-5"/></svg> Bank-grade security</span>
+          <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m20 6-11 11-5-5"/></svg> 11 Indian languages</span>
+          <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m20 6-11 11-5-5"/></svg> No data selling. Ever.</span>
+        </div>
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="reveal" style="display:flex; justify-content:center;">
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div style="font-size:0.65rem; color: rgba(255,255,255,0.5);">Good evening, Aarav</div>
+                <div style="font-weight:700; font-size:0.95rem;">This month</div>
+              </div>
+              <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#00D09C,#6366F1);display:flex;align-items:center;justify-content:center;font-weight:800;color:#051914;font-size:0.85rem;">A</div>
+            </div>
+            <div class="mini-card">
+              <div class="label">Spending Score</div>
+              <div class="val gradient-text">96 · Excellent</div>
+              <div class="mini-bar"><i style="width:96%"></i></div>
+            </div>
+            <div class="mini-grid">
+              <div class="mini-card">
+                <div class="label">Income</div>
+                <div class="val" style="color:#22C55E;">₹1,00,000</div>
+              </div>
+              <div class="mini-card">
+                <div class="label">Expenses</div>
+                <div class="val" style="color:#FF5C7C;">₹10,496</div>
+              </div>
+            </div>
+            <div class="mini-card" style="flex:1; overflow:hidden;">
+              <div class="label" style="margin-bottom:6px;">Recent</div>
+              <div class="mini-txn"><div class="mini-avatar">🍔</div><div class="name">Swiggy</div><div class="amt">-₹250</div></div>
+              <div class="mini-txn"><div class="mini-avatar">🛒</div><div class="name">Amazon</div><div class="amt">-₹1,899</div></div>
+              <div class="mini-txn pos"><div class="mini-avatar">💼</div><div class="name">Salary</div><div class="amt">+₹50,000</div></div>
+              <div class="mini-txn"><div class="mini-avatar">🎬</div><div class="name">Netflix</div><div class="amt">-₹999</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row reveal">
+      <div class="stat"><div class="num"><span data-count="10000" data-suffix="+">0</span></div><div class="lbl">Happy Users</div></div>
+      <div class="stat"><div class="num"><span data-count="2.5" data-prefix="₹" data-suffix="Cr+">0</span></div><div class="lbl">Tracked Monthly</div></div>
+      <div class="stat"><div class="num"><span data-count="4.9" data-suffix="★">0</span></div><div class="lbl">Avg. Rating</div></div>
+      <div class="stat"><div class="num"><span data-count="11" data-suffix=" 🇮🇳">0</span></div><div class="lbl">Indian Languages</div></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">Features</div>
+        <h2>Everything you need to<br /><span class="gradient-text">master your money.</span></h2>
+        <p>Ten powerful features working together, wrapped in an interface so smooth it feels effortless.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>AI Expense Tracking</h3>
+          <p>Every transaction is automatically categorised into Food, Fuel, Shopping, Bills and more — using AI that learns your spending patterns.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.4 8.6 12 15l-3-3-5 5"/></svg></div>
+          <h3>Budget Planner</h3>
+          <p>Set monthly limits per category. Fynora nudges you before you cross the line — never after.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/></svg></div>
+          <h3>Savings Goals</h3>
+          <p>Emergency fund, vacation, new bike, dream laptop — visualise every goal with progress rings that celebrate every rupee saved.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3>SMS Transaction Detection</h3>
+          <p>Paste bank SMS or let Fynora parse them — every UPI, card and net-banking transaction turns into a clean entry instantly.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+          <h3>Receipt OCR Scanner</h3>
+          <p>Point, click, done. Claude Vision reads amount, merchant, date and category from any paper or digital receipt.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M22 12a10 10 0 0 0-10-10v10z"/></svg></div>
+          <h3>AI Spending Insights</h3>
+          <p>Weekly personalised nudges from Claude Sonnet 4.5 — witty, honest, and always in your preferred language.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+          <h3>Expense Analytics</h3>
+          <p>Beautiful charts break down your spending by category, merchant, day of week and payment method.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <h3>Monthly Reports</h3>
+          <p>End-of-month summaries with your spending score, top merchants, savings ratio and next-month recommendations.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+          <h3>Smart Notifications</h3>
+          <p>Budget overruns, bill reminders, streak achievements — only what matters, never a notification bomb.</p>
+        </div>
+        <div class="card feature reveal">
+          <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10c0-4.4-3.6-8-8-8S2 5.6 2 10a8 8 0 0 0 16 0z"/><path d="M22 18a4 4 0 0 0-8 0v4h8z"/></svg></div>
+          <h3>Secure Cloud Sync</h3>
+          <p>Your data is encrypted in transit and at rest. Sign in on any device and pick up exactly where you left off.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD PREVIEW -->
+  <section class="section" id="dashboard">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">Dashboard</div>
+        <h2>A dashboard that respects<br /><span class="gradient-text">your attention.</span></h2>
+        <p>The most important numbers, front and centre. Everything else, one tap away.</p>
+      </div>
+
+      <div class="preview-outer reveal">
+        <div class="dash-grid">
+          <div class="dash-card col-3">
+            <div class="label">Total Expenses</div>
+            <div class="val" style="color:#FF5C7C;">₹10,496</div>
+            <div class="delta neg">↓ 12% vs last month</div>
+          </div>
+          <div class="dash-card col-3">
+            <div class="label">Total Savings</div>
+            <div class="val" style="color:#22C55E;">₹89,504</div>
+            <div class="delta">↑ 18% vs last month</div>
+          </div>
+          <div class="dash-card col-3">
+            <div class="label">Budget Progress</div>
+            <div class="val">62%</div>
+            <div class="mini-bar" style="margin-top:8px;"><i style="width:62%"></i></div>
+          </div>
+          <div class="dash-card col-3" style="text-align:center;">
+            <div class="label">Spending Score</div>
+            <div class="score-dial" style="--p:96; margin-top:6px;"><span class="gradient-text">96</span></div>
+            <div class="delta">Excellent</div>
+          </div>
+
+          <div class="dash-card col-7">
+            <div class="label">Expense Categories · This Month</div>
+            <div class="chips">
+              <span class="chip"><span class="swatch" style="background:#00D09C"></span>Food · ₹250</span>
+              <span class="chip"><span class="swatch" style="background:#00B4D8"></span>Shopping · ₹3,399</span>
+              <span class="chip"><span class="swatch" style="background:#6366F1"></span>Travel · ₹600</span>
+              <span class="chip"><span class="swatch" style="background:#F59E0B"></span>Entertainment · ₹999</span>
+              <span class="chip"><span class="swatch" style="background:#FF5C7C"></span>Bills · ₹5,248</span>
+            </div>
+            <div class="bars">
+              <div class="bar" style="height:35%"><span>Mon</span></div>
+              <div class="bar" style="height:62%"><span>Tue</span></div>
+              <div class="bar" style="height:48%"><span>Wed</span></div>
+              <div class="bar" style="height:80%"><span>Thu</span></div>
+              <div class="bar" style="height:55%"><span>Fri</span></div>
+              <div class="bar" style="height:92%"><span>Sat</span></div>
+              <div class="bar" style="height:40%"><span>Sun</span></div>
+            </div>
+          </div>
+
+          <div class="dash-card col-5">
+            <div class="label">AI Insights · Powered by Claude</div>
+            <div style="margin-top:10px;">
+              <div class="insight-row"><div class="ico">🤑</div><div class="txt">You saved ₹44,752 this month — 89% of your income tucked away!</div></div>
+              <div class="insight-row"><div class="ico">🛍️</div><div class="txt">Your shopping at ₹3,399 was the MVP of spending this month.</div></div>
+              <div class="insight-row"><div class="ico">🍜</div><div class="txt">Food at only ₹250? Home cooking is paying off.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYTICS -->
+  <section class="section" id="analytics">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">Analytics</div>
+        <h2>Charts that tell you<br /><span class="gradient-text">exactly where your money went.</span></h2>
+      </div>
+
+      <div class="preview-outer reveal">
+        <div class="dash-grid">
+          <div class="dash-card col-6">
+            <div class="label">Monthly Spending · Last 6 months</div>
+            <svg class="line-chart" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="line-grad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#00D09C"/><stop offset="1" stop-color="#6366F1"/>
+                </linearGradient>
+                <linearGradient id="area-grad" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#00D09C"/><stop offset="1" stop-color="#00D09C" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path class="area" d="M 10 110 L 78 90 L 146 60 L 214 80 L 282 40 L 350 55 L 390 30 L 390 160 L 10 160 Z"/>
+              <path class="line" d="M 10 110 L 78 90 L 146 60 L 214 80 L 282 40 L 350 55 L 390 30"/>
+              <g fill="#00D09C">
+                <circle cx="10" cy="110" r="4"/><circle cx="78" cy="90" r="4"/><circle cx="146" cy="60" r="4"/>
+                <circle cx="214" cy="80" r="4"/><circle cx="282" cy="40" r="4"/><circle cx="350" cy="55" r="4"/>
+                <circle cx="390" cy="30" r="4"/>
+              </g>
+            </svg>
+            <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.72rem; color:var(--text-dim);">
+              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+            </div>
+          </div>
+
+          <div class="dash-card col-6" style="text-align:center;">
+            <div class="label" style="text-align:left;">Category Distribution</div>
+            <div class="pie" style="margin-top:14px;"></div>
+            <div class="pie-legend">
+              <div><span class="sw" style="background:#00D09C"></span>Food · 30%</div>
+              <div><span class="sw" style="background:#00B4D8"></span>Shopping · 25%</div>
+              <div><span class="sw" style="background:#6366F1"></span>Travel · 20%</div>
+              <div><span class="sw" style="background:#F59E0B"></span>Bills · 13%</div>
+              <div><span class="sw" style="background:#FF5C7C"></span>Others · 12%</div>
+            </div>
+          </div>
+
+          <!-- Budget preview -->
+          <div class="dash-card col-6">
+            <div class="label">Budget Planner · This Month</div>
+            <div class="budget-list" style="margin-top:14px;">
+              <div class="budget-row"><div class="top"><strong>🍔 Food</strong><span>₹250 / ₹5,000</span></div><div class="bar"><i style="width:5%"></i></div></div>
+              <div class="budget-row"><div class="top"><strong>🛒 Shopping</strong><span>₹3,399 / ₹6,000</span></div><div class="bar"><i style="width:57%"></i></div></div>
+              <div class="budget-row warn"><div class="top"><strong>🎬 Entertainment</strong><span>₹999 / ₹1,000</span></div><div class="bar"><i style="width:99%"></i></div></div>
+              <div class="budget-row"><div class="top"><strong>🧾 Bills</strong><span>₹5,248 / ₹8,000</span></div><div class="bar"><i style="width:66%"></i></div></div>
+              <div class="budget-row"><div class="top"><strong>⛽ Fuel</strong><span>₹600 / ₹3,000</span></div><div class="bar"><i style="width:20%"></i></div></div>
+            </div>
+          </div>
+
+          <!-- Goals -->
+          <div class="dash-card col-6">
+            <div class="label">Savings Goals</div>
+            <div class="goals-grid" style="margin-top:14px;">
+              <div class="goal card" style="padding:18px;">
+                <div class="emoji">🛡️</div><div class="name">Emergency Fund</div>
+                <div class="amt">₹65,000 / ₹1,00,000</div>
+                <div class="ring" style="--p:65;"><span>65%</span></div>
+              </div>
+              <div class="goal card" style="padding:18px;">
+                <div class="emoji">✈️</div><div class="name">Vacation</div>
+                <div class="amt">₹28,000 / ₹80,000</div>
+                <div class="ring" style="--p:35;"><span>35%</span></div>
+              </div>
+              <div class="goal card" style="padding:18px;">
+                <div class="emoji">🏍️</div><div class="name">Bike</div>
+                <div class="amt">₹1,40,000 / ₹1,80,000</div>
+                <div class="ring" style="--p:78;"><span>78%</span></div>
+              </div>
+              <div class="goal card" style="padding:18px;">
+                <div class="emoji">💻</div><div class="name">Laptop</div>
+                <div class="amt">₹42,000 / ₹90,000</div>
+                <div class="ring" style="--p:47;"><span>47%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section class="section" id="security">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">Security & Privacy</div>
+        <h2>Built with paranoia,<br /><span class="gradient-text">so you don't have to be.</span></h2>
+        <p>Your financial data is the most sensitive data you own. We treat it that way.</p>
+      </div>
+
+      <div class="security-grid">
+        <div class="card sec-card reveal">
+          <div class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <h3>End-to-End Encryption</h3>
+          <p>Every transaction, budget and goal is encrypted in transit (TLS 1.3) and at rest with AES-256. Only you can decrypt your data.</p>
+        </div>
+        <div class="card sec-card reveal">
+          <div class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <h3>User Privacy First</h3>
+          <p>We never sell your data. No advertising trackers. No dark patterns. Your data is used only to power features you asked for.</p>
+        </div>
+        <div class="card sec-card reveal">
+          <div class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+          <h3>Secure Cloud Infrastructure</h3>
+          <p>Hosted on enterprise-grade infrastructure with 24/7 monitoring, hardened firewalls and continuous security audits.</p>
+        </div>
+        <div class="card sec-card reveal">
+          <div class="icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg></div>
+          <h3>AI Data Protection</h3>
+          <p>Prompts sent to our AI models never include your personal identity. Data is not used to train third-party models.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">About Fynora</div>
+        <h2>An AI companion, not a<br /><span class="gradient-text">financial advisor.</span></h2>
+      </div>
+      <div class="reveal" style="max-width:820px; margin: 0 auto;">
+        <div class="card" style="padding: 36px;">
+          <p style="font-size:1.05rem; line-height:1.75; color: var(--text);">
+            Fynora is an AI-powered personal finance application built to help everyday Indians <strong>track expenses, create budgets, build savings and understand spending</strong> — clearly, calmly and in their own language.
+          </p>
+          <p style="font-size:1.05rem; line-height:1.75;">
+            We built Fynora because personal finance apps have been either bank-branded lock-ins or overwhelming spreadsheets. Fynora is neither. It is a thoughtful, private, AI-assisted place where your money finally makes sense.
+          </p>
+          <div class="callout" style="margin-top: 22px; background: rgba(255, 92, 124, 0.06); border-color: rgba(255, 92, 124, 0.25);">
+            <strong style="color: var(--text);">Important — What Fynora is NOT.</strong>
+            <p style="margin-top: 8px;">Fynora does <strong>not</strong> provide any of the following services, and none of the information in the app should be taken as professional financial advice:</p>
+            <ul style="margin: 8px 0 0 20px; color: var(--text-muted);">
+              <li>Investment advice or portfolio management</li>
+              <li>Stock trading or brokerage services</li>
+              <li>Lending, credit lines or loans</li>
+              <li>Insurance products</li>
+              <li>Cryptocurrency trading, exchange or wallets</li>
+              <li>Forex trading or currency exchange</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">Loved by users</div>
+        <h2>People are switching to Fynora<br /><span class="gradient-text">and staying.</span></h2>
+      </div>
+      <div class="testi-grid">
+        <div class="card testi reveal">
+          <div class="stars">★★★★★</div>
+          <p>“Finally an expense tracker that doesn't feel like a spreadsheet. The Claude insights are eerily accurate — it caught my Swiggy overspend before I did.”</p>
+          <div class="who"><div class="av">AS</div><div><div class="name">Ananya Sharma</div><div class="role">Product Designer, Bengaluru</div></div></div>
+        </div>
+        <div class="card testi reveal">
+          <div class="stars">★★★★★</div>
+          <p>“The SMS parser is magic. I stopped writing anything down. I just check Fynora at the end of the week and everything's already there — sorted, categorised, ready.”</p>
+          <div class="who"><div class="av">RK</div><div><div class="name">Rohit Kumar</div><div class="role">Software Engineer, Pune</div></div></div>
+        </div>
+        <div class="card testi reveal">
+          <div class="stars">★★★★★</div>
+          <p>“I run a small business and Fynora's receipt scanner has saved me hours every week. Snap the bill, review, done. It reads Hindi receipts perfectly too.”</p>
+          <div class="who"><div class="av">PS</div><div><div class="name">Priya Singh</div><div class="role">Boutique Owner, Jaipur</div></div></div>
+        </div>
+        <div class="card testi reveal">
+          <div class="stars">★★★★★</div>
+          <p>“Best part? Insights in Tamil. My mother finally uses a finance app — because it speaks her language, not English. Small thing, huge impact.”</p>
+          <div class="who"><div class="av">KR</div><div><div class="name">Karthik R.</div><div class="role">Consultant, Chennai</div></div></div>
+        </div>
+        <div class="card testi reveal">
+          <div class="stars">★★★★★</div>
+          <p>“I've tried Money Manager, Walnut, Money View. Fynora is the first one that respects my attention. Clean, fast, and the AI actually helps.”</p>
+          <div class="who"><div class="av">MS</div><div><div class="name">Mehul Shah</div><div class="role">Startup Founder, Mumbai</div></div></div>
+        </div>
+        <div class="card testi reveal">
+          <div class="stars">★★★★★</div>
+          <p>“The savings goals with the little progress rings — I don't know why but they're so satisfying. I've saved ₹40k for my Iceland trip because of Fynora.”</p>
+          <div class="who"><div class="av">TN</div><div><div class="name">Tanya Nair</div><div class="role">Marketing Manager, Kochi</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">FAQ</div>
+        <h2>Questions, answered<br /><span class="gradient-text">straight.</span></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">Is my data secure?<span class="plus">+</span></button>
+          <div class="faq-a">
+            <p>Yes. All communication uses TLS 1.3. Data at rest is encrypted with AES-256. Passwords are hashed with bcrypt. Session tokens use short-lived JWTs with per-user revocation, and we never store your bank credentials — Fynora only ever reads bank SMS text you paste in or share with the app.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">Does Fynora provide investment advice?<span class="plus">+</span></button>
+          <div class="faq-a">
+            <p>No. Fynora is a personal finance <strong>tracking and budgeting</strong> app. We do not offer investment advice, stock recommendations, portfolio management, lending, insurance, cryptocurrency or forex services. AI insights are educational and are not to be construed as professional financial advice — consult a SEBI-registered advisor for that.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">Is SMS permission mandatory?<span class="plus">+</span></button>
+          <div class="faq-a">
+            <p>No. SMS auto-detection is completely optional. If you deny the permission, you can still paste bank SMS messages into the app manually or add every transaction by hand. Fynora functions fully without SMS access.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">Can I delete my account?<span class="plus">+</span></button>
+          <div class="faq-a">
+            <p>Absolutely. Email us at <a href="mailto:fynorasupport@gmail.com" style="color:var(--primary);">fynorasupport@gmail.com</a> with the subject <em>“Delete My Account”</em>. Your account and every byte of your data will be permanently erased within 7 business days. See the <a href="/delete-account.html" style="color:var(--primary);">Delete Account page</a> for details.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">Is Fynora really free?<span class="plus">+</span></button>
+          <div class="faq-a">
+            <p>Yes. The core app — expense tracking, budgeting, goals, AI insights, monthly reports — is free forever. Fynora Pro (₹199/month or ₹1,799/year) unlocks unlimited receipt scans, multi-currency support and premium insights, but no core feature is behind a paywall.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">Which languages does Fynora support?<span class="plus">+</span></button>
+          <div class="faq-a">
+            <p>English plus 10 Indian languages in native scripts: Hindi, Marathi, Gujarati, Tamil, Telugu, Malayalam, Bengali, Punjabi, Urdu, and Odia. Every screen, dialog and even AI insight is translated — no mixing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="kicker">Contact</div>
+        <h2>We answer every email.<br /><span class="gradient-text">Usually within a day.</span></h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="card contact-info reveal">
+          <h3>Get in touch</h3>
+          <p>Support, feedback, partnerships or press — we'd love to hear from you.</p>
+          <div class="row">
+            <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="lbl">Email</div><a href="mailto:fynorasupport@gmail.com">fynorasupport@gmail.com</a></div>
+          </div>
+          <div class="row">
+            <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="lbl">Response time</div><span style="color:var(--text);">Within 24 hours, Mon–Sat</span></div>
+          </div>
+          <div class="row">
+            <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="lbl">Location</div><span style="color:var(--text);">Made in India 🇮🇳</span></div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <form id="contactForm" class="form" novalidate>
+            <label>Full name
+              <input class="input" type="text" name="name" required autocomplete="name" placeholder="Aarav Sharma" />
+            </label>
+            <label>Email
+              <input class="input" type="email" name="email" required autocomplete="email" placeholder="you@example.com" />
+            </label>
+            <label>Message
+              <textarea class="textarea" name="message" required placeholder="How can we help?"></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+            <div id="formMsg" class="form-msg" role="status" aria-live="polite"></div>
+            <p class="form-note">By submitting this form you agree to be contacted at the email you provided. We never share your details.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD / CTA -->
+  <section class="section" id="download">
+    <div class="container">
+      <div class="cta-wrap reveal">
+        <div class="kicker" style="display:inline-block; padding: 6px 14px; border-radius: 999px; background: var(--grad-soft); border: 1px solid var(--border); color: var(--primary); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 18px;">Download</div>
+        <h2>Ready to make your<br /><span class="gradient-text">money make sense?</span></h2>
+        <p style="max-width:600px; margin: 12px auto 0;">Fynora is launching on Google Play and the App Store soon. Sign up early and we'll email you the moment it goes live.</p>
+        <div class="store-btns">
+          <a href="#contact" class="store-btn" aria-label="Google Play — Coming Soon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3l10 9L3 21V3z"/><path d="M13 12l7-4v8l-7-4z"/></svg>
+            <div><div class="s1">Coming soon on</div><div class="s2">Google Play</div></div>
+            <span class="soon">SOON</span>
+          </a>
+          <a href="#contact" class="store-btn" aria-label="App Store — Coming Soon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 18.5c-3.3 0-5.5-2.7-5.5-6.5 0-1.7.6-3.3 1.7-4.5.6-.7 1.5-1 2.3-1 .9 0 1.5.4 2 .7.4-.3 1-.7 2-.7.6 0 1.6.2 2.4 1.2-2.1 1.3-1.7 4.3.5 5.2-.4 1.1-.9 2.2-1.7 3.1-.6.7-1.2 1.5-2.7 1.5z"/></svg>
+            <div><div class="s1">Coming soon on the</div><div class="s2">App Store</div></div>
+            <span class="soon">SOON</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="brand-block">
+          <a href="#top" class="brand" style="margin-bottom:16px;">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="34" height="34" aria-hidden="true">
+              <defs><linearGradient id="bgF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D09C"/><stop offset="0.5" stop-color="#00B4D8"/><stop offset="1" stop-color="#6366F1"/></linearGradient></defs>
+              <path d="M16 4 H48 A12 12 0 0 1 60 16 V48 A12 12 0 0 1 48 60 H16 A12 12 0 0 1 4 48 V16 A12 12 0 0 1 16 4 Z" fill="#0D1117" stroke="url(#bgF)" stroke-width="1.5"/>
+              <path d="M18 14 H44 V22 H26 V30 H40 V38 H26 V50 H18 Z" fill="url(#bgF)"/>
+              <path d="M34 44 L46 32 M40 32 H46 V38" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span class="brand-text">Fynora</span>
+          </a>
+          <p>Your AI Finance Companion. Track expenses, plan budgets, grow savings — all in your own language.</p>
+          <a href="mailto:fynorasupport@gmail.com" style="color:var(--primary); font-size:0.9rem;">fynorasupport@gmail.com</a>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#analytics">Analytics</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#download">Download</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="mailto:fynorasupport@gmail.com">Support</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="/delete-account.html">Delete Account</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© <span id="yr">2026</span> Fynora. All Rights Reserved.</div>
+        <div class="made">Made in India 🇮🇳 · Powered by Claude Sonnet 4.5</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="to-top" id="toTop" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

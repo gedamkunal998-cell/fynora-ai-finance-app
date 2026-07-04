@@ -1,83 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Delete Account - Fynora</title>
-
-<style>
-
-body{
-max-width:900px;
-margin:auto;
-padding:40px 20px;
-font-family:Arial,Helvetica,sans-serif;
-line-height:1.7;
-color:#222;
-}
-
-h1,h2{
-color:#0F6FFF;
-}
-
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0D1117" />
+  <title>Delete Account · Fynora</title>
+  <meta name="description" content="Permanently delete your Fynora account and all associated data. Simple, transparent process." />
+  <link rel="canonical" href="https://fynora.app/delete-account.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet" />
 </head>
-
 <body>
+  <header class="header scrolled" id="header">
+    <div class="nav-inner">
+      <a href="/" class="brand">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="d1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D09C"/><stop offset="0.5" stop-color="#00B4D8"/><stop offset="1" stop-color="#6366F1"/></linearGradient></defs><path d="M16 4 H48 A12 12 0 0 1 60 16 V48 A12 12 0 0 1 48 60 H16 A12 12 0 0 1 4 48 V16 A12 12 0 0 1 16 4 Z" fill="#0D1117" stroke="url(#d1)" stroke-width="1.5"/><path d="M18 14 H44 V22 H26 V30 H40 V38 H26 V50 H18 Z" fill="url(#d1)"/><path d="M34 44 L46 32 M40 32 H46 V38" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <span class="brand-text">Fynora</span>
+      </a>
+      <div class="nav-cta">
+        <a href="/" class="btn btn-ghost btn-sm">Home</a>
+        <a href="/contact.html" class="btn btn-primary btn-sm">Contact</a>
+      </div>
+    </div>
+  </header>
 
-<h1>Delete Your Fynora Account</h1>
+  <main class="legal-wrap">
+    <div class="container">
+      <h1>Delete Your Account</h1>
+      <div class="updated">You have full control over your data. Deletion is permanent, transparent and free.</div>
 
-<p>If you wish to permanently delete your Fynora account, please follow the instructions below.</p>
+      <p>At Fynora, your data is yours — always. You can permanently delete your account and every piece of personal data we hold about you at any time.</p>
 
-<h2>How to Request Account Deletion</h2>
+      <h2>How to request deletion</h2>
+      <p>Send an email from the address associated with your Fynora account to:</p>
+      <div class="callout">
+        <strong>To:</strong> <a href="mailto:fynorasupport@gmail.com?subject=Delete%20My%20Account">fynorasupport@gmail.com</a><br />
+        <strong>Subject:</strong> Delete My Account<br />
+        <strong>Body (optional):</strong> Full name registered on Fynora. Reason for leaving (optional — helps us improve).
+      </div>
 
-<ol>
+      <p style="text-align:center; margin: 24px 0;">
+        <a href="mailto:fynorasupport@gmail.com?subject=Delete%20My%20Account&body=Hi%20Fynora%20team%2C%0A%0APlease%20permanently%20delete%20my%20account%20and%20all%20associated%20data.%0A%0AFull%20name%3A%20%0AEmail%20on%20file%3A%20%0A%0AThank%20you." class="btn btn-primary btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+          Email deletion request
+        </a>
+      </p>
 
-<li>Send an email to <strong>fynorasupport@gmail.com</strong>.</li>
+      <h2>What happens next</h2>
+      <h3>1. Verification (1–2 business days)</h3>
+      <p>We verify that the deletion request came from the email registered on the account. We may ask you a security question or ask you to reply from within the app to prevent malicious deletion requests.</p>
 
-<li>Use the subject line:
-<b>Delete My Fynora Account</b></li>
+      <h3>2. Permanent deletion (within 7 business days)</h3>
+      <p>Once verified, your account and every associated record are permanently removed from our production systems, including:</p>
+      <ul>
+        <li>Profile (name, email, avatar, preferences)</li>
+        <li>All transactions, budgets, goals, achievements and streaks</li>
+        <li>All uploaded receipts and OCR results</li>
+        <li>Session tokens, device tokens and notification preferences</li>
+        <li>AI insight cache and analytics attributed to your user id</li>
+      </ul>
 
-<li>Include the email address associated with your Fynora account.</li>
+      <h3>3. Backup purge (within 30 days)</h3>
+      <p>Encrypted rolling backups are also purged, after which recovery of any part of your data is technically impossible.</p>
 
-<li>Our support team will verify your request.</li>
+      <h3>4. Confirmation email</h3>
+      <p>You will receive a final confirmation email once deletion is complete. If you subscribed to Fynora Pro, any pending refund will be processed to your original payment method.</p>
 
-<li>Your account and associated data will be permanently deleted within 7 business days.</li>
+      <div class="callout">
+        <strong>Important.</strong>
+        <p>Deletion is <strong>permanent</strong>. Once complete we cannot recover any part of your account. If you only want to take a break, consider logging out or turning off notifications instead of deleting.</p>
+      </div>
 
-</ol>
+      <h2>Before you go…</h2>
+      <p>If something is broken or missing in Fynora, we’d love a chance to fix it. Email us at <a href="mailto:fynorasupport@gmail.com">fynorasupport@gmail.com</a> — we read every message.</p>
+    </div>
+  </main>
 
-<h2>Data That Will Be Deleted</h2>
-
-<ul>
-
-<li>User Account</li>
-
-<li>Transactions</li>
-
-<li>Budgets</li>
-
-<li>Savings Goals</li>
-
-<li>AI Insights</li>
-
-<li>Profile Information</li>
-
-</ul>
-
-<h2>Data That May Be Retained</h2>
-
-<p>We may retain limited information where required by applicable laws, fraud prevention, dispute resolution, or regulatory compliance.</p>
-
-<h2>Need Help?</h2>
-
-<p>Email:</p>
-
-<p><strong>fynorasupport@gmail.com</strong></p>
-
-<p>© 2026 Fynora. All Rights Reserved.</p>
-
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© <span id="yr">2026</span> Fynora. All Rights Reserved.</div>
+        <div><a href="/">Home</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/contact.html">Contact</a></div>
+      </div>
+    </div>
+  </footer>
+  <script src="/script.js" defer></script>
 </body>
-
 </html>

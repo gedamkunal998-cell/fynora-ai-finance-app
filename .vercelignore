@@ -1,0 +1,24 @@
+# Fynora — Vercel static deployment ignores
+# Only deploy the marketing website. Never expose app source.
+
+backend/
+frontend/
+tests/
+memory/
+scripts/
+.emergent/
+.git/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+
+# Dev-only files
+backend_test.py
+test_result.md
+design_guidelines.json
+entrypoint.sh
+config.json
+README.md

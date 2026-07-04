@@ -1,0 +1,12 @@
+{
+  "name": "Fynora — Your AI Finance Companion",
+  "short_name": "Fynora",
+  "description": "AI-powered personal finance app — track expenses, plan budgets, grow savings.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1117",
+  "theme_color": "#00D09C",
+  "icons": [
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
